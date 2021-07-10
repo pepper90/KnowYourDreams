@@ -26,7 +26,7 @@
             tools:text="A"
             android:textColor="@color/white"
             android:textAlignment="center"
-            android:fontFamily="@font/amaticsc_bold"/>
+            android:fontFamily="@font/amaticsc_regular"/>
         </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

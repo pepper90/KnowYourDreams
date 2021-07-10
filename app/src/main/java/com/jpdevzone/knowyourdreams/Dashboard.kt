@@ -34,7 +34,7 @@ class Dashboard : AppCompatActivity() {
 
         val mRecyclerView2: RecyclerView = findViewById(R.id.dashboardRecyclerView)
         mRecyclerView2.setHasFixedSize(true)
-        val mLayoutManager2: RecyclerView.LayoutManager = LinearLayoutManager(this)
+        val mLayoutManager2: RecyclerView.LayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL,false)
         val mAdapter2: RecyclerView.Adapter<*> = RecyclerViewAdapter(dreams)
 
         mRecyclerView2.layoutManager = mLayoutManager2
