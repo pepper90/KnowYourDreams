@@ -1,12 +1,16 @@
 package com.jpdevzone.knowyourdreams
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.jpdevzone.knowyourdreams.adapters.AlphabetAdapter
-import com.jpdevzone.knowyourdreams.adapters.RecyclerViewAdapter
+import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jpdevzone.knowyourdreams.databinding.ActivityDashboardBinding
+
 
 class Dashboard : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardBinding
@@ -18,36 +22,20 @@ class Dashboard : AppCompatActivity() {
         setContentView(view)
 
         val searchView = binding.searchView
+        val input = searchView.context.resources.getIdentifier("android:id/search_src_text", null, null)
+        val searchText = searchView.findViewById<View>(input) as TextView
+        val font = ResourcesCompat.getFont(this, R.font.oswald_light)
+        searchText.typeface = font
+
         searchView.setOnClickListener {
             searchView.isIconified = false
         }
 
-        val mRecyclerView1: RecyclerView = findViewById(R.id.alphabet)
-        mRecyclerView1.setHasFixedSize(true)
-        val mLayoutManager1: RecyclerView.LayoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
-        val mAdapter1: RecyclerView.Adapter<*> = AlphabetAdapter(alphabet())
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        val navController = navHostFragment.navController
 
-        mRecyclerView1.layoutManager = mLayoutManager1
-        mRecyclerView1.adapter = mAdapter1
+        bottomNavigationView.setupWithNavController(navController)
 
-        val dreams = Constants.getDreams()
-
-        val mRecyclerView2: RecyclerView = findViewById(R.id.dashboardRecyclerView)
-        mRecyclerView2.setHasFixedSize(true)
-        val mLayoutManager2: RecyclerView.LayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL,false)
-        val mAdapter2: RecyclerView.Adapter<*> = RecyclerViewAdapter(dreams)
-
-        mRecyclerView2.layoutManager = mLayoutManager2
-        mRecyclerView2.adapter = mAdapter2
-
-    }
-    private fun alphabet(): ArrayList<String> {
-        val list = ArrayList<String>()
-        val alphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЮЯ".toCharArray()
-
-        for (i in alphabet) {
-            list.add("$i")
-        }
-        return list
     }
 }
