@@ -1,126 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragments.HomeFragment">
+    tools:context=".fragments.HomeFragment"
+    android:scrollbars="none">
 
-    <LinearLayout
-        android:id="@+id/homeLinear"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:background="@color/blue_700"
-        android:orientation="vertical">
+        android:background="@color/white">
 
         <LinearLayout
+            android:id="@+id/homeLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_linear"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@color/blue_700"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal"
-                tools:ignore="UseCompoundDrawables,UselessParent">
+                android:background="@drawable/bg_linear"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginRight="6dp"
-                    android:src="@drawable/ic_time"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/amaticsc_bold"
-                    android:gravity="center_vertical"
-                    android:text="@string/recent"
-                    android:textColor="@color/teal_200"
-                    android:textSize="30sp" />
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables,UselessParent">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginRight="6dp"
+                        android:src="@drawable/ic_time"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/amaticsc_bold"
+                        android:gravity="center_vertical"
+                        android:text="@string/recent"
+                        android:textColor="@color/teal_200"
+                        android:textSize="30sp" />
+
+                </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/homeCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/homeLinear"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            app:cardCornerRadius="25dp"
+            app:strokeColor="@color/teal_200"
+            app:strokeWidth="2dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/homeRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                tools:listitem="@layout/home_item_dream" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:id="@id/homeLinear2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@id/homeCardView"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables,UselessParent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:src="@drawable/ic_arrow_forward"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/amaticsc_bold"
+                android:gravity="center_vertical"
+                android:text="@string/random"
+                android:textColor="@color/blue_700"
+                android:textSize="30sp" />
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/homeCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/homeLinear"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        app:cardCornerRadius="25dp"
-        app:strokeColor="@color/teal_200"
-        app:strokeWidth="2dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/homeRecyclerView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            tools:listitem="@layout/home_item_dream" />
+            android:layout_below="@id/homeLinear2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
 
-    </com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_random_dream"
+                android:orientation="vertical"
+                tools:ignore="UselessParent"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp"
-        android:layout_below="@id/homeCardView"
-        android:orientation="horizontal"
-        tools:ignore="UseCompoundDrawables,UselessParent">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
+                    app:cardCornerRadius="25dp"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="2dp"
+                    app:cardBackgroundColor="@color/blue_700">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="6dp"
-            android:layout_marginRight="6dp"
-            android:src="@drawable/ic_arrow_forward"
-            tools:ignore="ContentDescription" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="@font/amaticsc_bold"
-            android:gravity="center_vertical"
-            android:text="@string/random"
-            android:textColor="@color/teal_200"
-            android:textSize="30sp" />
+                        <TextView
+                            android:id="@+id/random_dream"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/amaticsc_regular"
+                            android:gravity="center"
+                            android:padding="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:textSize="40sp"
+                            android:textStyle="bold"
+                            tools:text="Lorem Ipsum"/>
 
-    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-</RelativeLayout>
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_copy"
+                                android:background="@drawable/bg_button"
+                                android:padding="15dp"
+                                tools:ignore="ContentDescription" />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_share"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginStart="30dp"
+                                android:layout_marginRight="30dp"
+                                android:layout_marginEnd="30dp"
+                                android:background="@drawable/bg_button"
+                                android:padding="15dp"
+                                tools:ignore="ContentDescription" />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_star_card"
+                                android:background="@drawable/bg_button"
+                                android:padding="15dp"
+                                tools:ignore="ContentDescription" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/random_definition"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/oswald_light"
+                            android:gravity="center"
+                            android:padding="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:textSize="25sp"
+                            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
