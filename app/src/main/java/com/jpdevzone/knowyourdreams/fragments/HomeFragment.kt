@@ -9,22 +9,21 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.Constants
-import com.jpdevzone.knowyourdreams.R
 import com.jpdevzone.knowyourdreams.adapters.HomeAdapter
-import com.jpdevzone.knowyourdreams.adapters.RecyclerViewAdapter
+import com.jpdevzone.knowyourdreams.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
-
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val homeLayout = inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val searched = Constants.getDreams()
 
-        val homeRecyclerView: RecyclerView = homeLayout.findViewById(R.id.homeRecyclerView)
+        val homeRecyclerView: RecyclerView = binding.homeRecyclerView
         homeRecyclerView.setHasFixedSize(true)
         homeRecyclerView.addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
         val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
@@ -33,6 +32,10 @@ class HomeFragment : Fragment() {
         homeRecyclerView.layoutManager = mLayoutManager
         homeRecyclerView.adapter = mAdapter
 
-        return homeLayout
+        val random = Constants.getDreams().shuffled()[1]
+        binding.randomDream.text = random.dreamItem
+        binding.randomDefinition.text = random.dreamDefinition
+
+        return binding.root
     }
 }
