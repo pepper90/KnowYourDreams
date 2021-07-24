@@ -1,6 +1,5 @@
 package com.jpdevzone.knowyourdreams
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView

@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.Constants
+import com.jpdevzone.knowyourdreams.R
 import com.jpdevzone.knowyourdreams.adapters.AlphabetAdapter
 import com.jpdevzone.knowyourdreams.adapters.RecyclerViewAdapter
 import com.jpdevzone.knowyourdreams.databinding.FragmentSearchBinding
@@ -28,6 +31,19 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
+
+        val searchView = activity?.findViewById<SearchView>(R.id.searchView)
+        searchView?.imeOptions = EditorInfo.IME_ACTION_DONE
+        searchView?.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                (mAdapter2 as RecyclerViewAdapter).filter.filter(newText)
+                return false
+            }
+        })
 
         mRecyclerView1 = binding.alphabet
         mRecyclerView1!!.setHasFixedSize(true)
