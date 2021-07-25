@@ -97,35 +97,51 @@
             android:id="@+id/historyLinear2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
-            android:layout_below="@+id/historyCardView"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables,UselessParent">
+            android:background="@color/blue_700"
+            android:orientation="vertical"
+            android:layout_below="@+id/historyCardView">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="6dp"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/ic_arrow_forward"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/amaticsc_bold"
-                android:gravity="center_vertical"
-                android:text="@string/random"
-                android:textColor="@color/blue_700"
-                android:textSize="30sp" />
+                android:background="@drawable/bg_linear2"
+                android:orientation="vertical">
 
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    tools:ignore="UseCompoundDrawables,UselessParent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginRight="6dp"
+                        android:src="@drawable/ic_arrow_forward"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/amaticsc_bold"
+                        android:gravity="center_vertical"
+                        android:text="@string/random"
+                        android:textColor="@color/blue_700"
+                        android:textSize="30sp" />
+
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
