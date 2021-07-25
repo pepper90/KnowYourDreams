@@ -37,13 +37,18 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/amaticsc_bold"
                 android:textSize="40sp"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:paddingBottom="20dp"/>
 
             <SearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_search"
                 android:queryHint="@string/whatDream"
                 android:clickable="true"

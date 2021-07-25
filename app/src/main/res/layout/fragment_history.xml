@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragments.HomeFragment"
+    tools:context=".fragments.HistoryFragment"
     android:scrollbars="none">
 
     <RelativeLayout
@@ -14,7 +14,7 @@
         android:background="@color/white">
 
         <LinearLayout
-            android:id="@+id/homeLinear"
+            android:id="@+id/historyLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -67,10 +67,10 @@
         </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/homeCardView"
+            android:id="@+id/historyCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/homeLinear"
+            android:layout_below="@id/historyLinear"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
@@ -84,17 +84,17 @@
             app:strokeWidth="2dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/homeRecyclerView"
+                android:id="@+id/historyRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"
                 android:scrollbars="none"
-                tools:listitem="@layout/home_item_dream" />
+                tools:listitem="@layout/history_item_dream" />
 
         </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
-            android:id="@id/homeLinear2"
+            android:id="@+id/historyLinear2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -103,7 +103,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
-            android:layout_below="@id/homeCardView"
+            android:layout_below="@+id/historyCardView"
             android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables,UselessParent">
 
@@ -131,7 +131,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/homeLinear2"
+            android:layout_below="@id/historyLinear2"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"

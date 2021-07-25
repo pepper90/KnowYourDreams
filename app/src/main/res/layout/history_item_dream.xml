@@ -19,7 +19,7 @@
             tools:ignore="UselessParent">
 
             <LinearLayout
-                android:id="@+id/homeLinear"
+                android:id="@+id/hisotryLinear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
@@ -54,7 +54,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/homeLinear2"
+                android:id="@+id/historyLinear2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"

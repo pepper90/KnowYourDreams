@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.R
 
-class HomeAdapter(private val searched: ArrayList<Dream>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HistoryAdapter(private val searched: ArrayList<Dream>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         var dream: TextView = view.findViewById(R.id.tv_item)
@@ -17,7 +17,7 @@ class HomeAdapter(private val searched: ArrayList<Dream>) : RecyclerView.Adapter
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.home_item_dream,viewGroup,false)
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.history_item_dream,viewGroup,false)
         return ViewHolder(view)
     }
 
