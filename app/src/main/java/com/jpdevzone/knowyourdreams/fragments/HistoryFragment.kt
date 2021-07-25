@@ -41,7 +41,7 @@ class HistoryFragment : Fragment() {
         historyRecyclerView.layoutManager = mLayoutManager
         historyRecyclerView.adapter = mAdapter
 
-        val random = Constants.getDreams().shuffled()[1]
+        val random = Constants.getDreams()[140]
         binding.randomDream.text = random.dreamItem
         binding.randomDefinition.text = random.dreamDefinition
 
