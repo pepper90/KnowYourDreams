@@ -21,7 +21,7 @@
                 android:id="@+id/inflatedTop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_toolbar"
+                android:background="@drawable/bg_inflated_dream"
                 android:orientation="vertical"
                 tools:ignore="UselessParent"
                 android:paddingTop="15dp"
