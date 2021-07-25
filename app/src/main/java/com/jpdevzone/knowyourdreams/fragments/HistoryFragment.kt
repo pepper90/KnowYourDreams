@@ -41,17 +41,10 @@ class HistoryFragment : Fragment() {
         historyRecyclerView.layoutManager = mLayoutManager
         historyRecyclerView.adapter = mAdapter
 
-        val random = Constants.getDreams()[140]
+        val random = Constants.getDreams().shuffled()[1]
         binding.randomDream.text = random.dreamItem
         binding.randomDefinition.text = random.dreamDefinition
 
         return binding.root
     }
-
-    override fun onDetach() {
-        super.onDetach()
-        val searchView = activity?.findViewById<SearchView>(R.id.searchView)
-        searchView?.visibility = View.VISIBLE
-    }
-
 }

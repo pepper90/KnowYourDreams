@@ -1,5 +1,6 @@
 package com.jpdevzone.knowyourdreams.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,12 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
     private lateinit var mAdapter1: RecyclerView.Adapter<*>
     private lateinit var mAdapter2: RecyclerView.Adapter<*>
     private val dreams = Constants.getDreams()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val searchView = activity?.findViewById<SearchView>(R.id.searchView)
+        searchView?.visibility = View.VISIBLE
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
