@@ -18,12 +18,12 @@ import com.jpdevzone.knowyourdreams.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, AlphabetAdapter.OnLetterClickListener {
     private lateinit var binding: FragmentSearchBinding
-    private var mRecyclerView1: RecyclerView? = null
-    private var mRecyclerView2: RecyclerView? = null
-    private var mLayoutManager1: RecyclerView.LayoutManager? = null
-    private var mLayoutManager2: RecyclerView.LayoutManager? = null
-    private var mAdapter1: RecyclerView.Adapter<*>? = null
-    private var mAdapter2: RecyclerView.Adapter<*>? = null
+    private lateinit var mRecyclerView1: RecyclerView
+    private lateinit var mRecyclerView2: RecyclerView
+    private lateinit var mLayoutManager1: RecyclerView.LayoutManager
+    private lateinit var mLayoutManager2: RecyclerView.LayoutManager
+    private lateinit var mAdapter1: RecyclerView.Adapter<*>
+    private lateinit var mAdapter2: RecyclerView.Adapter<*>
     private val dreams = Constants.getDreams()
 
     override fun onCreateView(
@@ -46,19 +46,19 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         })
 
         mRecyclerView1 = binding.alphabet
-        mRecyclerView1!!.setHasFixedSize(true)
+        mRecyclerView1.setHasFixedSize(true)
         mLayoutManager1 = LinearLayoutManager(
             context,
             RecyclerView.HORIZONTAL, false
         )
         mAdapter1 = AlphabetAdapter(alphabet(), this)
 
-        mRecyclerView1!!.layoutManager = mLayoutManager1
-        mRecyclerView1!!.adapter = mAdapter1
+        mRecyclerView1.layoutManager = mLayoutManager1
+        mRecyclerView1.adapter = mAdapter1
 
         mRecyclerView2 = binding.searchRecyclerView
-        mRecyclerView2!!.setHasFixedSize(true)
-        mRecyclerView2!!.addItemDecoration(
+        mRecyclerView2.setHasFixedSize(true)
+        mRecyclerView2.addItemDecoration(
             DividerItemDecoration(
                 this.context,
                 DividerItemDecoration.VERTICAL
@@ -67,8 +67,8 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         mLayoutManager2 = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mAdapter2 = RecyclerViewAdapter(dreams, this)
 
-        mRecyclerView2!!.layoutManager = mLayoutManager2
-        mRecyclerView2!!.adapter = mAdapter2
+        mRecyclerView2.layoutManager = mLayoutManager2
+        mRecyclerView2.adapter = mAdapter2
 
         return binding.root
     }
@@ -97,8 +97,8 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
 
     override fun onLetterClick(letter: String) {
         when (letter) {
-            "А" -> {(mRecyclerView2!!.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0,0)}
-            "Б" -> {(mRecyclerView2!!.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(140,0)}
+            "А" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0,0)}
+            "Б" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(140,0)}
             "В" -> {}
             "Г" -> {}
             "Д" -> {}
