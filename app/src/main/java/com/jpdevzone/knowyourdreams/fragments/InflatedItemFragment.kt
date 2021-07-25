@@ -16,7 +16,7 @@ class InflatedItemFragment: DialogFragment() {
         super.onStart()
         dialog!!.let {
             val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.WRAP_CONTENT
+            val height = ViewGroup.LayoutParams.MATCH_PARENT
             it.window!!.setLayout(width, height)
 
             val mArgs = arguments
