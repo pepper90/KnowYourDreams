@@ -87,7 +87,6 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
                 tempDreams = results?.values as ArrayList<Dream>
                 notifyDataSetChanged()
             }
-
         }
     }
 }
