@@ -2,6 +2,7 @@ package com.jpdevzone.knowyourdreams
 
 data class Dream(
     var dreamItem: String,
-    var dreamDefinition: String
+    var dreamDefinition: String,
+    var isChecked: Boolean = false
 
 )

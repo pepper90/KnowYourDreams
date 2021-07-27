@@ -2,6 +2,8 @@ package com.jpdevzone.knowyourdreams
 
 object Constants {
 
+    val favourites = ArrayList<Dream>()
+
     fun getDreams(): ArrayList<Dream> {
         val dreams = ArrayList<Dream>()
 

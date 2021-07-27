@@ -3,23 +3,23 @@ package com.jpdevzone.knowyourdreams.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.jpdevzone.knowyourdreams.Constants
 import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.R
 
 class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(), Filterable {
-
+    private var favourites = Constants.favourites
     private var tempDreams = ArrayList<Dream>()
-
     init {
         tempDreams = dreams
     }
 
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var dream: TextView = itemView.findViewById(R.id.tv_item)
+        val icon: CheckBox = itemView.findViewById(R.id.addToFavourites)
+
         init {
             itemView.setOnClickListener(this)
         }
@@ -40,12 +40,24 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.dream.text = tempDreams[position].dreamItem
+        val currentItem = tempDreams[position]
+        viewHolder.dream.text = currentItem.dreamItem
+
+        viewHolder.icon.setOnCheckedChangeListener(null)
+        viewHolder.icon.isChecked = currentItem.isChecked
+
+        viewHolder.icon.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
+            currentItem.isChecked = checked
+            if (currentItem.isChecked) {
+                favourites.add(currentItem)
+            }else {
+                favourites.remove(currentItem)
+            }
+            println(favourites)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return tempDreams.size
-    }
+    override fun getItemCount() = tempDreams.size
 
     interface OnItemClickListener {
         fun onItemClick(position: Int, item: String, definition: String)
@@ -78,6 +90,4 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
 
         }
     }
-
-
 }
