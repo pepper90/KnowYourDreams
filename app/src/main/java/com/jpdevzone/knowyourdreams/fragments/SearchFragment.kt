@@ -1,6 +1,5 @@
 package com.jpdevzone.knowyourdreams.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.Constants
+import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.R
 import com.jpdevzone.knowyourdreams.adapters.AlphabetAdapter
 import com.jpdevzone.knowyourdreams.adapters.RecyclerViewAdapter
@@ -26,12 +26,7 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
     private lateinit var mAdapter1: RecyclerView.Adapter<*>
     private lateinit var mAdapter2: RecyclerView.Adapter<*>
     private val dreams = Constants.getDreams()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val searchView = activity?.findViewById<SearchView>(R.id.searchView)
-        searchView?.visibility = View.VISIBLE
-    }
+    private val history = Constants.history
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,7 +85,20 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         return list
     }
 
-    override fun onItemClick(position: Int, item: String, definition: String) {
+    private fun history(currentItem: Dream): ArrayList<Dream> {
+        val limit = 4
+        if (history.size > limit) {
+            history.add(currentItem)
+            history.remove(history[0])
+        } else {
+            history.add(currentItem)
+        }
+        return history
+    }
+
+    override fun onItemClick(position: Int, item: String, definition: String, currentItem: Dream) {
+        history(currentItem)
+        println(history.size)
         val args = Bundle()
         args.putString("Item", item)
         args.putString("Definition", definition)
@@ -134,7 +142,5 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
             "Ю" -> {}
             "Я" -> {}
         }
-
     }
-
 }

@@ -26,10 +26,11 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
 
         override fun onClick(v: View?) {
             val position: Int = absoluteAdapterPosition
+            val currentItem = tempDreams[position]
             val item = tempDreams[position].dreamItem
             val definition = tempDreams[position].dreamDefinition
             if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(position,item,definition)
+                listener.onItemClick(position,item,definition,currentItem)
             }
         }
     }
@@ -60,7 +61,7 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
     override fun getItemCount() = tempDreams.size
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int, item: String, definition: String)
+        fun onItemClick(position: Int, item: String, definition: String, currentItem: Dream)
     }
 
     override fun getFilter(): Filter {

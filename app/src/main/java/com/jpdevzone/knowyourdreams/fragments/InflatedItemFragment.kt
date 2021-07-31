@@ -12,8 +12,17 @@ import com.jpdevzone.knowyourdreams.databinding.FragmentInflatedItemBinding
 class InflatedItemFragment: DialogFragment() {
     private lateinit var binding: FragmentInflatedItemBinding
 
-    override fun onStart() {
-        super.onStart()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentInflatedItemBinding.inflate(inflater,container,false)
+        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         dialog!!.let {
             val width = ViewGroup.LayoutParams.MATCH_PARENT
             val height = ViewGroup.LayoutParams.MATCH_PARENT
@@ -26,14 +35,5 @@ class InflatedItemFragment: DialogFragment() {
             binding.inflatedDream.text = myItem
             binding.inflatedDefinition.text = myDef
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentInflatedItemBinding.inflate(inflater,container,false)
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        return binding.root
     }
 }
