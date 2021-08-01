@@ -8,4 +8,5 @@
     <string name="recent">ПОСЛЕДНО ТЪРСЕНИ</string>
     <string name="random">СЛУЧАЕН СЪН</string>
     <string name="copyDream">Копиране</string>
+    <string name="empty">Историята е празна</string>
 </resources>

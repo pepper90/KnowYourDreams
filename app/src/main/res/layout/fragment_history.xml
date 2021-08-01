@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/blue_700"
     tools:context=".fragments.HistoryFragment"
     android:scrollbars="none">
 
@@ -44,6 +44,7 @@
                     tools:ignore="UseCompoundDrawables,UselessParent">
 
                     <ImageView
+                        android:id="@+id/iv_lastSearched"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
@@ -53,6 +54,7 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
+                        android:id="@+id/tv_lastSearched"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -82,6 +84,18 @@
             app:cardCornerRadius="25dp"
             app:strokeColor="@color/teal_200"
             app:strokeWidth="2dp">
+
+            <TextView
+                android:id="@+id/tv_emptyHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/amaticsc_bold"
+                android:text="@string/empty"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="@color/blue_700"
+                android:textSize="25sp"
+                android:visibility="gone"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/historyRecyclerView"

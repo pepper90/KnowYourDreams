@@ -3,7 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable-xxhdpi/ic_star_full_history.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable-xxhdpi/ic_star_outline_history.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_history.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star_card.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star_full.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/selector_is_checked.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/selector_is_checked_history.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/layout/activity_dashboard.xml" value="0.13677536231884058" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/layout/fragment_history.xml" value="0.13677536231884058" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/layout/history_item_dream.xml" value="0.4" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/layout/item_dream.xml" value="0.264" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/menu/bottom_navigation.xml" value="0.25416666666666665" />
       </map>
     </option>

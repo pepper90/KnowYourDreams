@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.Constants
+import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.adapters.HistoryAdapter
 import com.jpdevzone.knowyourdreams.databinding.FragmentHistoryBinding
 
-class HistoryFragment : Fragment() {
+class HistoryFragment : Fragment(), HistoryAdapter.OnItemClickListener {
     private lateinit var binding: FragmentHistoryBinding
     private val history = Constants.history
 
@@ -36,14 +37,30 @@ class HistoryFragment : Fragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
+            if (history.size == 0) {
+                binding.tvEmptyHistory.visibility = View.VISIBLE
+            } else {
+                binding.tvEmptyHistory.visibility = View.GONE
+            }
             val historyRecyclerView: RecyclerView = binding.historyRecyclerView
             historyRecyclerView.setHasFixedSize(true)
-            historyRecyclerView.addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
             val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,true)
-            val mAdapter: RecyclerView.Adapter<*> = HistoryAdapter(history)
+            val mAdapter: RecyclerView.Adapter<*> = HistoryAdapter(history,this)
 
             historyRecyclerView.layoutManager = mLayoutManager
             historyRecyclerView.adapter = mAdapter
         }
+    }
+
+    override fun onItemClick(item: String, definition: String) {
+        val args = Bundle()
+        args.putString("Item", item)
+        args.putString("Definition", definition)
+
+        val inflatedFragment = InflatedItemFragment()
+        inflatedFragment.arguments = args
+        val fm = requireActivity().supportFragmentManager
+
+        inflatedFragment.show(fm, "inflatedItem")
     }
 }

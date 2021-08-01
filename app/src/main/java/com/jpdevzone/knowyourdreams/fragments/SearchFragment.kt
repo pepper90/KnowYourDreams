@@ -96,7 +96,7 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         return history
     }
 
-    override fun onItemClick(position: Int, item: String, definition: String, currentItem: Dream) {
+    override fun onItemClick(item: String, definition: String, currentItem: Dream) {
         history(currentItem)
         println(history.size)
         val args = Bundle()

@@ -1,5 +1,6 @@
 package com.jpdevzone.knowyourdreams.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,7 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
             val item = tempDreams[position].dreamItem
             val definition = tempDreams[position].dreamDefinition
             if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(position,item,definition,currentItem)
+                listener.onItemClick(item,definition,currentItem)
             }
         }
     }
@@ -61,7 +62,7 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
     override fun getItemCount() = tempDreams.size
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int, item: String, definition: String, currentItem: Dream)
+        fun onItemClick(item: String, definition: String, currentItem: Dream)
     }
 
     override fun getFilter(): Filter {
@@ -83,6 +84,7 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
                 return filterResults
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 @Suppress("UNCHECKED_CAST")
                 tempDreams = results?.values as ArrayList<Dream>
