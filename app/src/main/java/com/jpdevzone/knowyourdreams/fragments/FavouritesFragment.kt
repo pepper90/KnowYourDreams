@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.Constants
+import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.adapters.FavouritesAdapter
-import com.jpdevzone.knowyourdreams.adapters.HistoryAdapter
 import com.jpdevzone.knowyourdreams.databinding.FragmentFavouritesBinding
 
 
-class FavouritesFragment : Fragment() {
+class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener {
     private lateinit var binding: FragmentFavouritesBinding
     private val favourites = Constants.favourites
+    private val history = Constants.history
 
 
     override fun onCreateView(
@@ -46,10 +47,35 @@ class FavouritesFragment : Fragment() {
             val favouritesRecyclerView: RecyclerView = binding.favouritesRecyclerView
             favouritesRecyclerView.setHasFixedSize(true)
             val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,true)
-            val mAdapter: RecyclerView.Adapter<*> = FavouritesAdapter(favourites)
+            val mAdapter: RecyclerView.Adapter<*> = FavouritesAdapter(favourites, this)
 
             favouritesRecyclerView.layoutManager = mLayoutManager
             favouritesRecyclerView.adapter = mAdapter
         }
+    }
+
+    private fun history(currentItem: Dream): ArrayList<Dream> {
+        val limit = 4
+        if (history.size > limit) {
+            history.add(currentItem)
+            history.remove(history[0])
+        } else {
+            history.add(currentItem)
+        }
+        return history
+    }
+
+    override fun onItemClick(item: String, definition: String, currentItem: Dream) {
+        history(currentItem)
+        println(history.size)
+        val args = Bundle()
+        args.putString("Item", item)
+        args.putString("Definition", definition)
+
+        val inflatedFragment = InflatedItemFragment()
+        inflatedFragment.arguments = args
+        val fm = requireActivity().supportFragmentManager
+
+        inflatedFragment.show(fm, "inflatedItem")
     }
 }

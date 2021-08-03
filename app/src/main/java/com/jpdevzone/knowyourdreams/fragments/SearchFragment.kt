@@ -75,6 +75,20 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         return binding.root
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            mRecyclerView2 = binding.searchRecyclerView
+            mRecyclerView2.setHasFixedSize(true)
+
+            mLayoutManager2 = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            mAdapter2 = RecyclerViewAdapter(dreams, this)
+
+            mRecyclerView2.layoutManager = mLayoutManager2
+            mRecyclerView2.adapter = mAdapter2
+        }
+    }
+
     private fun alphabet(): ArrayList<String> {
         val list = ArrayList<String>()
         val alphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЮЯ".toCharArray()

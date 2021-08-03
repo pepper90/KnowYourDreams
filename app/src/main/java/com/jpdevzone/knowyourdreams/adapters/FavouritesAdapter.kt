@@ -9,12 +9,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.R
 
-class FavouritesAdapter (private val favourites: ArrayList<Dream>) : RecyclerView.Adapter<FavouritesAdapter.ViewHolder>() {
+class FavouritesAdapter (private val favourites: ArrayList<Dream>, private val listener: OnItemClickListener) : RecyclerView.Adapter<FavouritesAdapter.ViewHolder>() {
 
-    class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var dream: TextView = itemView.findViewById(R.id.tv_item_favourites)
         var definition: TextView = itemView.findViewById(R.id.tv_definition_favourites)
         var icon: ImageView = itemView.findViewById(R.id.delete_from_favourites)
+        val id: Int = itemView.id
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position: Int = absoluteAdapterPosition
+            val currentItem = favourites[position]
+            val item = favourites[position].dreamItem
+            val definition = favourites[position].dreamDefinition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(item,definition,currentItem)
+            }
+        }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -29,6 +44,10 @@ class FavouritesAdapter (private val favourites: ArrayList<Dream>) : RecyclerVie
         viewHolder.icon.setOnClickListener{
             println(favourites.size)
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(item: String, definition: String, currentItem: Dream)
     }
 
     override fun getItemCount(): Int {
