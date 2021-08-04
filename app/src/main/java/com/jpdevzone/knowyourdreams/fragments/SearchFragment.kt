@@ -78,13 +78,7 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
-            mRecyclerView2 = binding.searchRecyclerView
-            mRecyclerView2.setHasFixedSize(true)
-
-            mLayoutManager2 = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             mAdapter2 = RecyclerViewAdapter(dreams, this)
-
-            mRecyclerView2.layoutManager = mLayoutManager2
             mRecyclerView2.adapter = mAdapter2
         }
     }
@@ -111,7 +105,9 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
     }
 
     override fun onItemClick(item: String, definition: String, currentItem: Dream) {
-        history(currentItem)
+        if (!history.contains(currentItem)) {
+            history(currentItem)
+        }
         println(history.size)
         val args = Bundle()
         args.putString("Item", item)

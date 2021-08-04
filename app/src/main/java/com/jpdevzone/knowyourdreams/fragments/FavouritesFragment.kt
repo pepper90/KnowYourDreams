@@ -46,7 +46,8 @@ class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener {
             }
             val favouritesRecyclerView: RecyclerView = binding.favouritesRecyclerView
             favouritesRecyclerView.setHasFixedSize(true)
-            val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,true)
+            val mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,true)
+            mLayoutManager.stackFromEnd = true
             val mAdapter: RecyclerView.Adapter<*> = FavouritesAdapter(favourites, this)
 
             favouritesRecyclerView.layoutManager = mLayoutManager
@@ -66,7 +67,9 @@ class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(item: String, definition: String, currentItem: Dream) {
-        history(currentItem)
+        if (!history.contains(currentItem)) {
+            history(currentItem)
+        }
         println(history.size)
         val args = Bundle()
         args.putString("Item", item)

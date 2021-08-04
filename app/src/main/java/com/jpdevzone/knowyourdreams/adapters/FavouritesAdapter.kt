@@ -6,10 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.jpdevzone.knowyourdreams.Constants
 import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.R
 
 class FavouritesAdapter (private val favourites: ArrayList<Dream>, private val listener: OnItemClickListener) : RecyclerView.Adapter<FavouritesAdapter.ViewHolder>() {
+
+    private val dreams = Constants.getDreams()
 
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var dream: TextView = itemView.findViewById(R.id.tv_item_favourites)
@@ -26,6 +29,7 @@ class FavouritesAdapter (private val favourites: ArrayList<Dream>, private val l
             val currentItem = favourites[position]
             val item = favourites[position].dreamItem
             val definition = favourites[position].dreamDefinition
+
             if (position != RecyclerView.NO_POSITION) {
                 listener.onItemClick(item,definition,currentItem)
             }
@@ -41,7 +45,14 @@ class FavouritesAdapter (private val favourites: ArrayList<Dream>, private val l
         val currentItem = favourites[position]
         viewHolder.dream.text = currentItem.dreamItem
         viewHolder.definition.text = currentItem.dreamDefinition
+
         viewHolder.icon.setOnClickListener{
+            dreams[position].id = currentItem.id
+            currentItem.isChecked = false
+            dreams[position].isChecked = currentItem.isChecked
+            favourites.remove(currentItem)
+            notifyItemRemoved(position)
+
             println(favourites.size)
         }
     }
