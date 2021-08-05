@@ -1,5 +1,6 @@
 package com.jpdevzone.knowyourdreams.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,9 @@ import com.jpdevzone.knowyourdreams.databinding.FragmentFavouritesBinding
 
 class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener {
     private lateinit var binding: FragmentFavouritesBinding
+    private lateinit var favouritesRecyclerView: RecyclerView
+    private lateinit var mLayoutManager: RecyclerView.LayoutManager
+    private lateinit var mAdapter: RecyclerView.Adapter<*>
     private val favourites = Constants.favourites
     private val history = Constants.history
 
@@ -30,28 +34,32 @@ class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (favourites.size == 0) {
+            binding.tvEmptyFavourites.visibility = View.VISIBLE
+        } else {
+            binding.tvEmptyFavourites.visibility = View.GONE
+        }
+        favouritesRecyclerView = binding.favouritesRecyclerView
+        favouritesRecyclerView.setHasFixedSize(true)
+        mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,true)
+        (mLayoutManager as LinearLayoutManager).stackFromEnd = true
+        mAdapter = FavouritesAdapter(favourites, this)
+
+        favouritesRecyclerView.layoutManager = mLayoutManager
+        favouritesRecyclerView.adapter = mAdapter
+
         val random = Constants.getDreams().shuffled()[1]
 
         binding.randomDream.text = random.dreamItem
         binding.randomDefinition.text = random.dreamDefinition
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
-            if (favourites.size == 0) {
-                binding.tvEmptyFavourites.visibility = View.VISIBLE
-            } else {
-                binding.tvEmptyFavourites.visibility = View.GONE
-            }
-            val favouritesRecyclerView: RecyclerView = binding.favouritesRecyclerView
-            favouritesRecyclerView.setHasFixedSize(true)
-            val mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,true)
-            mLayoutManager.stackFromEnd = true
-            val mAdapter: RecyclerView.Adapter<*> = FavouritesAdapter(favourites, this)
-
-            favouritesRecyclerView.layoutManager = mLayoutManager
-            favouritesRecyclerView.adapter = mAdapter
+            favouritesRecyclerView.adapter!!.notifyDataSetChanged()
         }
     }
 
@@ -69,6 +77,9 @@ class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener {
     override fun onItemClick(item: String, definition: String, currentItem: Dream) {
         if (!history.contains(currentItem)) {
             history(currentItem)
+        }else{
+            history.remove(currentItem)
+            history.add(history.size, currentItem)
         }
         println(history.size)
         val args = Bundle()

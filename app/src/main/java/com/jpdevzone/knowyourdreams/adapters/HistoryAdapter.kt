@@ -27,10 +27,11 @@ class HistoryAdapter (private val history: ArrayList<Dream>, private val listene
 
         override fun onClick(v: View?) {
             val position: Int = absoluteAdapterPosition
+            val currentItem = history[position]
             val item = history[position].dreamItem
             val definition = history[position].dreamDefinition
             if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(item,definition)
+                listener.onItemClick(item,definition,currentItem)
             }
         }
     }
@@ -68,7 +69,7 @@ class HistoryAdapter (private val history: ArrayList<Dream>, private val listene
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: String, definition: String)
+        fun onItemClick(item: String, definition: String, currentItem:Dream)
     }
 
     override fun getItemCount(): Int {

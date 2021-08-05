@@ -16,6 +16,7 @@
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star_full_history.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_time.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/selector_is_checked.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/selector_is_checked_favourites.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/selector_is_checked_history.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/layout/activity_dashboard.xml" value="0.152" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/layout/favs_item_dream.xml" value="0.4" />
