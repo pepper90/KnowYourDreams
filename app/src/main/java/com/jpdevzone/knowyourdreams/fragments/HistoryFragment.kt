@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.Constants
@@ -37,6 +38,12 @@ class HistoryFragment : Fragment(), HistoryAdapter.OnItemClickListener {
         }
         historyRecyclerView = binding.historyRecyclerView
         historyRecyclerView.setHasFixedSize(true)
+        historyRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                this.context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,true)
         mAdapter = HistoryAdapter(history,this)
 

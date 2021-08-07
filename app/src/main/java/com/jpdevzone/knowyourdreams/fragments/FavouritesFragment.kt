@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.Constants
@@ -42,6 +43,12 @@ class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener {
         }
         favouritesRecyclerView = binding.favouritesRecyclerView
         favouritesRecyclerView.setHasFixedSize(true)
+        favouritesRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                this.context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,true)
         (mLayoutManager as LinearLayoutManager).stackFromEnd = true
         mAdapter = FavouritesAdapter(favourites, this)
