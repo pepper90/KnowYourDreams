@@ -215,6 +215,7 @@
                             android:orientation="horizontal">
 
                             <ImageButton
+                                android:id="@+id/btn_copy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_copy"
@@ -223,24 +224,16 @@
                                 tools:ignore="ContentDescription" />
 
                             <ImageButton
+                                android:id="@+id/btn_share"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_share"
                                 android:layout_marginLeft="30dp"
                                 android:layout_marginStart="30dp"
-                                android:layout_marginRight="30dp"
-                                android:layout_marginEnd="30dp"
                                 android:background="@drawable/bg_button"
                                 android:padding="15dp"
                                 tools:ignore="ContentDescription" />
 
-                            <ImageButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_star_card"
-                                android:background="@drawable/bg_button"
-                                android:padding="15dp"
-                                tools:ignore="ContentDescription" />
                         </LinearLayout>
 
                         <TextView
