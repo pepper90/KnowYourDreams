@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ class Dashboard : AppCompatActivity() {
     private val favouritesFragment = FavouritesFragment()
     private val fragmentManager = supportFragmentManager
     private var activeFragment: Fragment = searchFragment
+    private var counter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,4 +87,14 @@ class Dashboard : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        counter++
+        if (counter==1) {
+            Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()
+        }else {
+            finish()
+        }
+    }
+
 }
