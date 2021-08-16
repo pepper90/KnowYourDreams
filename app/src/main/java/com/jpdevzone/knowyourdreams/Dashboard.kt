@@ -1,5 +1,6 @@
 package com.jpdevzone.knowyourdreams
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
@@ -12,6 +13,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.jpdevzone.knowyourdreams.databinding.ActivityDashboardBinding
 import com.jpdevzone.knowyourdreams.fragments.FavouritesFragment
 import com.jpdevzone.knowyourdreams.fragments.HistoryFragment
@@ -28,13 +31,16 @@ class Dashboard : AppCompatActivity() {
     private val fragmentManager = supportFragmentManager
     private var activeFragment: Fragment = searchFragment
     private var counter = 0
+    private var dreams: ArrayList<Dream>? = null
+    private var history: ArrayList<Dream>? = null
+    private var favourites: ArrayList<Dream>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
+        loadData()
         searchView = binding.searchView
         val input = searchView.context.resources.getIdentifier("android:id/search_src_text", null, null)
         val searchText = searchView.findViewById<View>(input) as TextView
@@ -91,9 +97,60 @@ class Dashboard : AppCompatActivity() {
     override fun onBackPressed() {
         counter++
         if (counter==1) {
+            saveData()
             Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()
         }else {
             finish()
+        }
+    }
+
+
+
+    private fun saveData() {
+        val sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES,
+            Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(Constants.dreamList)
+        val json2 = gson.toJson(Constants.history)
+        val json3 = gson.toJson(Constants.favourites)
+        editor.putString(Constants.SP_DREAMS, json)
+        editor.putString(Constants.SP_HISTORY, json2)
+        editor.putString(Constants.SP_FAVOURITES, json3)
+        editor.apply()
+    }
+
+    private fun loadData() {
+        val sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES,
+            Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString(Constants.SP_DREAMS, null)
+        val json2 = sharedPreferences.getString(Constants.SP_HISTORY, null)
+        val json3 = sharedPreferences.getString(Constants.SP_FAVOURITES, null)
+        val type = object : TypeToken<ArrayList<Dream>>() {}.type
+        dreams = gson.fromJson(json, type)
+        history = gson.fromJson(json2, type)
+        favourites = gson.fromJson(json3, type)
+
+
+        if (dreams == null) {
+            Constants.dreamList = Constants.getDreams()
+        } else {
+            Constants.dreamList.clear()
+            Constants.dreamList.addAll(dreams!!)
+        }
+
+        if (history == null) {
+            Constants.history = Constants.historyEmpty
+        }else {
+            Constants.history.addAll(history!!)
+        }
+
+        if (favourites == null) {
+            Constants.favourites = Constants.favouritesEmpty
+        }else {
+            Constants.favourites.clear()
+            Constants.favourites.addAll(favourites!!)
         }
     }
 

@@ -8,13 +8,11 @@ import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.jpdevzone.knowyourdreams.Constants
 import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.R
 
 class FavouritesAdapter (private val favourites: ArrayList<Dream>, private val listener: OnItemClickListener) : RecyclerView.Adapter<FavouritesAdapter.ViewHolder>() {
 
-    private val dreams = Constants.getDreams()
 
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var dream: TextView = itemView.findViewById(R.id.tv_item_favourites)
@@ -57,15 +55,11 @@ class FavouritesAdapter (private val favourites: ArrayList<Dream>, private val l
             viewHolder.icon.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
                 currentItem.isChecked = checked
                 if (!currentItem.isChecked) {
-                    dreams[position].id = currentItem.id
-                    dreams[position].isChecked = false
                     favourites.remove(currentItem)
                     notifyItemRemoved(position)
                     notifyDataSetChanged()
                 }
                 println(favourites.size)
-                println(dreams[position].id)
-                println(dreams[position].isChecked)
             }
         }
     }

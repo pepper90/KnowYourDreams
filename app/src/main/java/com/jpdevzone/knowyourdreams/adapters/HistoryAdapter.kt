@@ -4,16 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.jpdevzone.knowyourdreams.Constants
 import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.R
 
 class HistoryAdapter (private val history: ArrayList<Dream>, private val listener: OnItemClickListener) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
-    private val dreams = Constants.getDreams()
-    private val favourites = Constants.favourites
 
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var dream: TextView = itemView.findViewById(R.id.tv_item_history)
@@ -27,11 +23,10 @@ class HistoryAdapter (private val history: ArrayList<Dream>, private val listene
 
         override fun onClick(v: View?) {
             val position: Int = absoluteAdapterPosition
-            val currentItem = history[position]
             val item = history[position].dreamItem
             val definition = history[position].dreamDefinition
             if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(item,definition,currentItem)
+                listener.onItemClick(item,definition)
             }
         }
     }
@@ -47,32 +42,20 @@ class HistoryAdapter (private val history: ArrayList<Dream>, private val listene
         viewHolder.definition.text = currentItem.dreamDefinition
         viewHolder.id = currentItem.id
 
-        viewHolder.icon.setOnCheckedChangeListener(null)
         viewHolder.icon.isChecked = currentItem.isChecked
-
-        viewHolder.icon.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
-            currentItem.isChecked = checked
-            if (!currentItem.isChecked) {
-                dreams[position].id = currentItem.id
-                dreams[position].isChecked = currentItem.isChecked
-                favourites.remove(currentItem)
-            } else {
-                dreams[position].id = currentItem.id
-                dreams[position].isChecked = currentItem.isChecked
-                favourites.add(currentItem)
-            }
-            println(dreams[position].id)
-            println(dreams[position].isChecked)
-            println(favourites.size)
-        }
-
+        viewHolder.icon.isEnabled = false
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: String, definition: String, currentItem:Dream)
+        fun onItemClick(item: String, definition: String)
     }
 
     override fun getItemCount(): Int {
-        return history.size
+        val limit = 5
+        return if (history.size > limit) {
+            limit
+        }else {
+            history.size
+        }
     }
 }

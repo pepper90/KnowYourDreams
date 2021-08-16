@@ -11,4 +11,5 @@
     <string name="empty">Историята е празна.</string>
     <string name="saved">ЗАПАЗЕНИ СЪНИЩА</string>
     <string name="empty2">Нямате запазени сънища.</string>
+    <string name="toast">Натисете още веднъж за ИЗХОД.</string>
 </resources>

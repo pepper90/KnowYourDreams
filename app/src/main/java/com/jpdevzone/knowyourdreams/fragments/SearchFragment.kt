@@ -26,8 +26,6 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
     private lateinit var mLayoutManager2: RecyclerView.LayoutManager
     private lateinit var mAdapter1: RecyclerView.Adapter<*>
     private lateinit var mAdapter2: RecyclerView.Adapter<*>
-    private val dreams = Constants.getDreams()
-    private val history = Constants.history
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +66,7 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
             )
         )
         mLayoutManager2 = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        mAdapter2 = RecyclerViewAdapter(dreams, this)
+        mAdapter2 = RecyclerViewAdapter(Constants.dreamList, this)
 
         mRecyclerView2.layoutManager = mLayoutManager2
         mRecyclerView2.adapter = mAdapter2
@@ -94,25 +92,9 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         return list
     }
 
-    private fun history(currentItem: Dream): ArrayList<Dream> {
-        val limit = 4
-        if (history.size > limit) {
-            history.add(currentItem)
-            history.remove(history[0])
-        } else {
-            history.add(currentItem)
-        }
-        return history
-    }
-
     override fun onItemClick(item: String, definition: String, currentItem: Dream) {
-        if (!history.contains(currentItem)) {
-            history(currentItem)
-        }else{
-            history.remove(currentItem)
-            history.add(history.size, currentItem)
-        }
-        println(history.size)
+        Constants.history.add(currentItem)
+        println(Constants.history.size)
         val args = Bundle()
         args.putString("Item", item)
         args.putString("Definition", definition)

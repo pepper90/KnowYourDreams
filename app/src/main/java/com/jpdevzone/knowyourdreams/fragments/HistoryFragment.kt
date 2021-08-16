@@ -19,7 +19,6 @@ class HistoryFragment : Fragment(), HistoryAdapter.OnItemClickListener {
     private lateinit var historyRecyclerView: RecyclerView
     private lateinit var mLayoutManager: RecyclerView.LayoutManager
     private lateinit var mAdapter: RecyclerView.Adapter<*>
-    private val history = Constants.history
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,11 +30,7 @@ class HistoryFragment : Fragment(), HistoryAdapter.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (history.size == 0) {
-            binding.tvEmptyHistory.visibility = View.VISIBLE
-        } else {
-            binding.tvEmptyHistory.visibility = View.GONE
-        }
+
         historyRecyclerView = binding.historyRecyclerView
         historyRecyclerView.setHasFixedSize(true)
         historyRecyclerView.addItemDecoration(
@@ -44,13 +39,8 @@ class HistoryFragment : Fragment(), HistoryAdapter.OnItemClickListener {
                 DividerItemDecoration.VERTICAL
             )
         )
-        mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,true)
-        mAdapter = HistoryAdapter(history,this)
 
-        historyRecyclerView.layoutManager = mLayoutManager
-        historyRecyclerView.adapter = mAdapter
-
-        val random = Constants.getDreams().shuffled()[1]
+        val random = Constants.dreamList.shuffled()[1]
 
         binding.randomDream.text = random.dreamItem
         binding.randomDefinition.text = random.dreamDefinition
@@ -60,28 +50,27 @@ class HistoryFragment : Fragment(), HistoryAdapter.OnItemClickListener {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
-            historyRecyclerView.adapter!!.notifyDataSetChanged()
+            if (Constants.history.isNotEmpty()) {
+                binding.tvEmptyHistory.visibility = View.GONE
+                historyRecyclerView.visibility = View.VISIBLE
+
+                mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                mAdapter = if (Constants.history.size == 1) {
+                    HistoryAdapter(Constants.history, this)
+                }else{
+                    HistoryAdapter(Constants.history.reversed() as ArrayList<Dream>,this)
+                }
+
+                historyRecyclerView.layoutManager = mLayoutManager
+                historyRecyclerView.adapter = mAdapter
+            } else {
+                binding.tvEmptyHistory.visibility = View.VISIBLE
+                historyRecyclerView.visibility = View.GONE
+            }
         }
     }
 
-    private fun history(currentItem: Dream): ArrayList<Dream> {
-        val limit = 4
-        if (history.size > limit) {
-            history.add(currentItem)
-            history.remove(history[0])
-        } else {
-            history.add(currentItem)
-        }
-        return history
-    }
-
-    override fun onItemClick(item: String, definition: String, currentItem: Dream) {
-        if (!history.contains(currentItem)) {
-            history(currentItem)
-        }else{
-            history.remove(currentItem)
-            history.add(history.size, currentItem)
-        }
+    override fun onItemClick(item: String, definition: String) {
         val args = Bundle()
         args.putString("Item", item)
         args.putString("Definition", definition)

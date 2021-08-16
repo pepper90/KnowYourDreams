@@ -20,9 +20,6 @@ class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener {
     private lateinit var favouritesRecyclerView: RecyclerView
     private lateinit var mLayoutManager: RecyclerView.LayoutManager
     private lateinit var mAdapter: RecyclerView.Adapter<*>
-    private val favourites = Constants.favourites
-    private val history = Constants.history
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,27 +33,17 @@ class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (favourites.size == 0) {
-            binding.tvEmptyFavourites.visibility = View.VISIBLE
-        } else {
-            binding.tvEmptyFavourites.visibility = View.GONE
-        }
-        favouritesRecyclerView = binding.favouritesRecyclerView
-        favouritesRecyclerView.setHasFixedSize(true)
-        favouritesRecyclerView.addItemDecoration(
-            DividerItemDecoration(
-                this.context,
-                DividerItemDecoration.VERTICAL
+            favouritesRecyclerView = binding.favouritesRecyclerView
+            favouritesRecyclerView.setHasFixedSize(true)
+            favouritesRecyclerView.addItemDecoration(
+                DividerItemDecoration(
+                    this.context,
+                    DividerItemDecoration.VERTICAL
+                )
             )
-        )
-        mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,true)
-        (mLayoutManager as LinearLayoutManager).stackFromEnd = true
-        mAdapter = FavouritesAdapter(favourites, this)
 
-        favouritesRecyclerView.layoutManager = mLayoutManager
-        favouritesRecyclerView.adapter = mAdapter
 
-        val random = Constants.getDreams().shuffled()[1]
+        val random = Constants.dreamList.shuffled()[1]
 
         binding.randomDream.text = random.dreamItem
         binding.randomDefinition.text = random.dreamDefinition
@@ -66,29 +53,25 @@ class FavouritesFragment : Fragment(), FavouritesAdapter.OnItemClickListener {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
-            favouritesRecyclerView.adapter!!.notifyDataSetChanged()
-        }
-    }
+            if (Constants.favourites.isNotEmpty()) {
+                binding.tvEmptyFavourites.visibility = View.GONE
+                favouritesRecyclerView.visibility = View.VISIBLE
+                mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, true)
+                (mLayoutManager as LinearLayoutManager).stackFromEnd = true
+                mAdapter = FavouritesAdapter(Constants.favourites, this)
 
-    private fun history(currentItem: Dream): ArrayList<Dream> {
-        val limit = 4
-        if (history.size > limit) {
-            history.add(currentItem)
-            history.remove(history[0])
-        } else {
-            history.add(currentItem)
+                favouritesRecyclerView.layoutManager = mLayoutManager
+                favouritesRecyclerView.adapter = mAdapter
+            }else{
+                binding.tvEmptyFavourites.visibility = View.VISIBLE
+                favouritesRecyclerView.visibility = View.GONE
+            }
         }
-        return history
     }
 
     override fun onItemClick(item: String, definition: String, currentItem: Dream) {
-        if (!history.contains(currentItem)) {
-            history(currentItem)
-        }else{
-            history.remove(currentItem)
-            history.add(history.size, currentItem)
-        }
-        println(history.size)
+        Constants.history.add(currentItem)
+        println(Constants.history.size)
         val args = Bundle()
         args.putString("Item", item)
         args.putString("Definition", definition)

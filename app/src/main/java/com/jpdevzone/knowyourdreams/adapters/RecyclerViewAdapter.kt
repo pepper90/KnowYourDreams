@@ -11,7 +11,6 @@ import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.R
 
 class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(), Filterable {
-    private var favourites = Constants.favourites
     private var tempDreams = ArrayList<Dream>()
     init {
         tempDreams = dreams
@@ -51,11 +50,11 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
         viewHolder.icon.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
             currentItem.isChecked = checked
             if (currentItem.isChecked) {
-                favourites.add(currentItem)
+                Constants.favourites.add(currentItem)
             }else {
-                favourites.remove(currentItem)
+                Constants.favourites.remove(currentItem)
             }
-            println(favourites)
+            println(Constants.favourites)
         }
     }
 

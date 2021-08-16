@@ -2,8 +2,18 @@ package com.jpdevzone.knowyourdreams
 
 object Constants {
 
-    val favourites = ArrayList<Dream>()
-    val history = ArrayList<Dream>()
+    const val SHARED_PREFERENCES = "shared_preferences"
+    const val SP_DREAMS = "shared_preferences_dreams"
+    const val SP_HISTORY = "shared_preferences_history"
+    const val SP_FAVOURITES = "shared_preferences_favourites"
+
+    var dreamList = getDreams()
+    var favourites = ArrayList<Dream>()
+    var history = ArrayList<Dream>()
+
+    var favouritesEmpty = ArrayList<Dream>()
+    var historyEmpty = ArrayList<Dream>()
+
 
     fun getDreams(): ArrayList<Dream> {
         val dreams = ArrayList<Dream>()
@@ -1315,5 +1325,4 @@ object Constants {
 
     return dreams
     }
-
 }
