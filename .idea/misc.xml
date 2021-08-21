@@ -7,18 +7,25 @@
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable-xxhdpi/ic_star_full_history.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable-xxhdpi/ic_star_outline_history.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/bg_button.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/bg_inflated_dream.xml" value="0.115625" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/bg_random_dream.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_arrow_forward.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_attention.xml" value="0.14635416666666667" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_copy.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_delete.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_exit.xml" value="0.14635416666666667" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_history.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_search.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_share.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star_card.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star_card_full.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star_card_outline.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star_full.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star_full_favourites.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star_full_history.xml" value="0.2703125" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star_outline.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_star_outline_history.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/ic_time.xml" value="0.2703125" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/drawable/inset_checked_false.xml" value="0.2703125" />
@@ -33,7 +40,7 @@
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/layout/fragment_history.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/layout/fragment_inflated_item.xml" value="0.16" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/layout/history_item_dream.xml" value="0.4" />
-        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/layout/item_dream.xml" value="0.264" />
+        <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/layout/item_dream.xml" value="0.8" />
         <entry key="..\:/AndroidProjects/KnowYourDreams/app/src/main/res/menu/bottom_navigation.xml" value="0.25416666666666665" />
       </map>
     </option>

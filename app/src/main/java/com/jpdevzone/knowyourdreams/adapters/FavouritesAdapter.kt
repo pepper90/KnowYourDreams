@@ -4,8 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.CompoundButton
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.Dream
@@ -17,8 +16,7 @@ class FavouritesAdapter (private val favourites: ArrayList<Dream>, private val l
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var dream: TextView = itemView.findViewById(R.id.tv_item_favourites)
         var definition: TextView = itemView.findViewById(R.id.tv_definition_favourites)
-        var icon: CheckBox = itemView.findViewById(R.id.delete_from_favourites)
-        var id: Int = itemView.id
+        var icon: ImageButton = itemView.findViewById(R.id.delete_from_favourites)
 
         init {
             itemView.setOnClickListener(this)
@@ -46,20 +44,13 @@ class FavouritesAdapter (private val favourites: ArrayList<Dream>, private val l
         val currentItem = favourites[position]
         viewHolder.dream.text = currentItem.dreamItem
         viewHolder.definition.text = currentItem.dreamDefinition
-        viewHolder.id = currentItem.id
 
-        viewHolder.icon.setOnCheckedChangeListener(null)
-        viewHolder.icon.isChecked = currentItem.isChecked
 
         if (position != RecyclerView.NO_POSITION) {
-            viewHolder.icon.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
-                currentItem.isChecked = checked
-                if (!currentItem.isChecked) {
-                    favourites.remove(currentItem)
-                    notifyItemRemoved(position)
-                    notifyDataSetChanged()
-                }
-                println(favourites.size)
+            viewHolder.icon.setOnClickListener {
+                favourites.remove(currentItem)
+                notifyItemRemoved(position)
+                notifyDataSetChanged()
             }
         }
     }

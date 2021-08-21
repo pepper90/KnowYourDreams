@@ -19,6 +19,7 @@ import com.jpdevzone.knowyourdreams.databinding.ActivityDashboardBinding
 import com.jpdevzone.knowyourdreams.fragments.FavouritesFragment
 import com.jpdevzone.knowyourdreams.fragments.HistoryFragment
 import com.jpdevzone.knowyourdreams.fragments.SearchFragment
+import es.dmoral.toasty.Toasty
 
 
 class Dashboard : AppCompatActivity() {
@@ -31,7 +32,6 @@ class Dashboard : AppCompatActivity() {
     private val fragmentManager = supportFragmentManager
     private var activeFragment: Fragment = searchFragment
     private var counter = 0
-    private var dreams: ArrayList<Dream>? = null
     private var history: ArrayList<Dream>? = null
     private var favourites: ArrayList<Dream>? = null
 
@@ -51,16 +51,16 @@ class Dashboard : AppCompatActivity() {
             searchView.isIconified = false
         }
 
+        bottomNavigationView = binding.bottomNavigation
+        val navHostFragment = fragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        val navController = navHostFragment.navController
+        bottomNavigationView.setupWithNavController(navController)
+
         fragmentManager.beginTransaction().apply {
             add(R.id.fragmentContainer, historyFragment, getString(R.string.myHistory)).setMaxLifecycle(historyFragment,Lifecycle.State.CREATED).hide(historyFragment)
             add(R.id.fragmentContainer, favouritesFragment, getString(R.string.myFavourites)).setMaxLifecycle(historyFragment,Lifecycle.State.CREATED).hide(favouritesFragment)
             add(R.id.fragmentContainer, searchFragment, getString(R.string.mySearch)).setMaxLifecycle(historyFragment,Lifecycle.State.RESUMED)
         }.commit()
-
-        bottomNavigationView = binding.bottomNavigation
-        val navHostFragment = fragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
-        val navController = navHostFragment.navController
-        bottomNavigationView.setupWithNavController(navController)
 
         initListeners()
     }
@@ -94,29 +94,15 @@ class Dashboard : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        counter++
-        if (counter==1) {
-            saveData()
-            Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()
-        }else {
-            finish()
-        }
-    }
-
-
-
     private fun saveData() {
         val sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES,
             Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
-        val json = gson.toJson(Constants.dreamList)
-        val json2 = gson.toJson(Constants.history)
-        val json3 = gson.toJson(Constants.favourites)
-        editor.putString(Constants.SP_DREAMS, json)
-        editor.putString(Constants.SP_HISTORY, json2)
-        editor.putString(Constants.SP_FAVOURITES, json3)
+        val json1 = gson.toJson(Constants.history)
+        val json2 = gson.toJson(Constants.favourites)
+        editor.putString(Constants.SP_HISTORY, json1)
+        editor.putString(Constants.SP_FAVOURITES, json2)
         editor.apply()
     }
 
@@ -124,25 +110,16 @@ class Dashboard : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES,
             Context.MODE_PRIVATE)
         val gson = Gson()
-        val json = sharedPreferences.getString(Constants.SP_DREAMS, null)
-        val json2 = sharedPreferences.getString(Constants.SP_HISTORY, null)
-        val json3 = sharedPreferences.getString(Constants.SP_FAVOURITES, null)
+        val json1 = sharedPreferences.getString(Constants.SP_HISTORY, null)
+        val json2 = sharedPreferences.getString(Constants.SP_FAVOURITES, null)
         val type = object : TypeToken<ArrayList<Dream>>() {}.type
-        dreams = gson.fromJson(json, type)
-        history = gson.fromJson(json2, type)
-        favourites = gson.fromJson(json3, type)
-
-
-        if (dreams == null) {
-            Constants.dreamList = Constants.getDreams()
-        } else {
-            Constants.dreamList.clear()
-            Constants.dreamList.addAll(dreams!!)
-        }
+        history = gson.fromJson(json1, type)
+        favourites = gson.fromJson(json2, type)
 
         if (history == null) {
             Constants.history = Constants.historyEmpty
         }else {
+            Constants.history.clear()
             Constants.history.addAll(history!!)
         }
 
@@ -154,4 +131,18 @@ class Dashboard : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        saveData()
+    }
+
+    override fun onBackPressed() {
+        counter++
+        if (counter==1) {
+            saveData()
+            Toasty.custom(this, R.string.toast,R.drawable.ic_exit,R.color.blue_700,Toast.LENGTH_LONG,true, true).show()
+        }else {
+            finish()
+        }
+    }
 }

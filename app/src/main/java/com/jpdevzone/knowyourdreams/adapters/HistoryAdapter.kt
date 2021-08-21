@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.Dream
@@ -14,8 +15,6 @@ class HistoryAdapter (private val history: ArrayList<Dream>, private val listene
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var dream: TextView = itemView.findViewById(R.id.tv_item_history)
         var definition: TextView = itemView.findViewById(R.id.tv_definition_history)
-        var icon: CheckBox = itemView.findViewById(R.id.addToFavourites_history)
-        var id: Int = itemView.id
 
         init {
             itemView.setOnClickListener(this)
@@ -40,10 +39,6 @@ class HistoryAdapter (private val history: ArrayList<Dream>, private val listene
         val currentItem = history[position]
         viewHolder.dream.text = currentItem.dreamItem
         viewHolder.definition.text = currentItem.dreamDefinition
-        viewHolder.id = currentItem.id
-
-        viewHolder.icon.isChecked = currentItem.isChecked
-        viewHolder.icon.isEnabled = false
     }
 
     interface OnItemClickListener {

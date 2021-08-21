@@ -27,7 +27,7 @@
             android:fontFamily="@font/amaticsc_regular"
             tools:ignore="RelativeOverlap" />
 
-        <CheckBox
+        <ImageButton
             android:id="@+id/addToFavourites"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,9 +36,11 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:button="@drawable/selector_is_checked"
+            android:background="@color/white"
             android:scaleX="1.6"
-            android:scaleY="1.6" />
+            android:scaleY="1.6"
+            android:src="@drawable/ic_star_full"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
 
 

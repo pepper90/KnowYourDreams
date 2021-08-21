@@ -12,4 +12,7 @@
     <string name="saved">ЗАПАЗЕНИ СЪНИЩА</string>
     <string name="empty2">Нямате запазени сънища.</string>
     <string name="toast">Натисете още веднъж за ИЗХОД.</string>
+    <string name="addedToFavs">Добавено в Любими.</string>
+    <string name="alreadyAdded">Сънят вече е добавен в Любими.</string>
+    <string name="copied">Копирано!</string>
 </resources>

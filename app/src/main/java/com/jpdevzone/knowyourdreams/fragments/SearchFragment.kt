@@ -1,6 +1,5 @@
 package com.jpdevzone.knowyourdreams.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -74,14 +73,6 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden) {
-            mRecyclerView2.adapter!!.notifyDataSetChanged()
-        }
-    }
-
     private fun alphabet(): ArrayList<String> {
         val list = ArrayList<String>()
         val alphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЮЯ".toCharArray()
@@ -94,7 +85,6 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
 
     override fun onItemClick(item: String, definition: String, currentItem: Dream) {
         Constants.history.add(currentItem)
-        println(Constants.history.size)
         val args = Bundle()
         args.putString("Item", item)
         args.putString("Definition", definition)

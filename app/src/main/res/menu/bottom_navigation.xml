@@ -5,13 +5,14 @@
         android:id="@+id/searchFragment"
         android:title="@string/mySearch"
         android:icon="@drawable/ic_search"/>
-    <item
-        android:id="@+id/historyFragment"
-        android:title="@string/myHistory"
-        android:icon="@drawable/ic_history"/>
+
     <item
         android:id="@+id/favouritesFragment"
         android:title="@string/myFavourites"
         android:icon="@drawable/ic_star_full"/>
 
+    <item
+        android:id="@+id/historyFragment"
+        android:title="@string/myHistory"
+        android:icon="@drawable/ic_history"/>
 </menu>

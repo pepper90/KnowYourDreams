@@ -61,13 +61,15 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginEnd="15dp">
 
-                <CheckBox
+                <ImageButton
                     android:id="@+id/delete_from_favourites"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleX="1.6"
                     android:scaleY="1.6"
-                    android:button="@drawable/selector_is_checked_favourites" />
+                    android:src="@drawable/ic_delete"
+                    android:background="@color/white"
+                    tools:ignore="ContentDescription" />
 
             </LinearLayout>
 

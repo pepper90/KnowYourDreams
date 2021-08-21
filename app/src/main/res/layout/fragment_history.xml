@@ -45,7 +45,8 @@
 
                     <ImageView
                         android:id="@+id/iv_lastSearched"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.1"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="6dp"
@@ -55,7 +56,8 @@
 
                     <TextView
                         android:id="@+id/tv_lastSearched"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.8"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/amaticsc_bold"
@@ -63,6 +65,18 @@
                         android:text="@string/recent"
                         android:textColor="@color/teal_200"
                         android:textSize="30sp" />
+
+                    <ImageButton
+                        android:id="@+id/delete_all_history"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.1"
+                        android:layout_height="match_parent"
+                        android:scaleX="1.6"
+                        android:scaleY="1.6"
+                        android:src="@drawable/ic_delete"
+                        android:background="@color/white"
+                        android:layout_gravity="center"
+                        tools:ignore="ContentDescription" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -230,6 +244,17 @@
                                 android:src="@drawable/ic_share"
                                 android:layout_marginLeft="30dp"
                                 android:layout_marginStart="30dp"
+                                android:layout_marginRight="30dp"
+                                android:layout_marginEnd="30dp"
+                                android:background="@drawable/bg_button"
+                                android:padding="15dp"
+                                tools:ignore="ContentDescription" />
+
+                            <ImageButton
+                                android:id="@+id/btn_addtofavs"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_star"
                                 android:background="@drawable/bg_button"
                                 android:padding="15dp"
                                 tools:ignore="ContentDescription" />
