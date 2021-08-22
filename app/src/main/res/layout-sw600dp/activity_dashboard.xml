@@ -58,7 +58,8 @@
                 app:searchHintIcon="@drawable/ic_search"
                 tools:ignore="UnusedAttribute"
                 android:queryBackground="@android:color/transparent"
-                app:queryBackground="@android:color/transparent"/>
+                app:queryBackground="@android:color/transparent"
+                app:theme="@style/AppSearchView"/>
 
         </LinearLayout>
 
