@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
@@ -8,7 +9,7 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp">
+        android:padding="@dimen/_3sdp">
 
         <TextView
             android:id="@+id/tv_item"
@@ -18,10 +19,10 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:layout_marginStart="6dp"
-            android:layout_marginLeft="6dp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
             android:textColor="@color/blue_500"
-            android:textSize="30sp"
+            android:textSize="@dimen/_24ssp"
             android:textStyle="bold"
             tools:text="Line 1"
             android:fontFamily="@font/amaticsc_regular"
@@ -34,12 +35,12 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="@dimen/_17sdp"
+            android:layout_marginRight="@dimen/_17sdp"
             android:background="@color/white"
             android:scaleX="1.6"
             android:scaleY="1.6"
-            android:src="@drawable/ic_star_full"
+            app:srcCompat="@drawable/ic_star_full"
             tools:ignore="ContentDescription" />
     </RelativeLayout>
 

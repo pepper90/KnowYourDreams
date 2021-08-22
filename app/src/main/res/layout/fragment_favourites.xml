@@ -34,12 +34,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="@dimen/_17sdp"
+                    android:layout_marginLeft="@dimen/_17sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_17sdp"
+                    android:layout_marginRight="@dimen/_17sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:orientation="horizontal"
                     tools:ignore="UseCompoundDrawables,UselessParent">
 
@@ -49,9 +49,9 @@
                         android:layout_weight="0.1"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="6dp"
-                        android:layout_marginRight="6dp"
-                        android:src="@drawable/ic_star_full_favourites"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        app:srcCompat="@drawable/ic_star_full_favourites"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -64,7 +64,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/saved"
                         android:textColor="@color/teal_200"
-                        android:textSize="30sp" />
+                        android:textSize="@dimen/_24ssp" />
 
                     <ImageButton
                         android:id="@+id/delete_all_favourites"
@@ -73,7 +73,7 @@
                         android:layout_height="match_parent"
                         android:scaleX="1.6"
                         android:scaleY="1.6"
-                        android:src="@drawable/ic_delete"
+                        app:srcCompat="@drawable/ic_delete"
                         android:background="@color/white"
                         android:layout_gravity="center"
                         tools:ignore="ContentDescription" />
@@ -91,13 +91,13 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
-            app:cardCornerRadius="25dp"
+            android:layout_marginStart="@dimen/_23sdp"
+            android:layout_marginLeft="@dimen/_23sdp"
+            android:layout_marginEnd="@dimen/_23sdp"
+            android:layout_marginRight="@dimen/_23sdp"
+            app:cardCornerRadius="@dimen/_20sdp"
             app:strokeColor="@color/teal_200"
-            app:strokeWidth="2dp">
+            app:strokeWidth="@dimen/_2sdp">
 
             <TextView
                 android:id="@+id/tv_emptyFavourites"
@@ -108,8 +108,9 @@
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textColor="@color/blue_700"
-                android:textSize="25sp"
-                android:visibility="gone"/>
+                android:textSize="@dimen/_19ssp"
+                android:visibility="gone"
+                android:padding="@dimen/_5sdp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/favouritesRecyclerView"
@@ -139,12 +140,12 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="@dimen/_17sdp"
+                    android:layout_marginLeft="@dimen/_17sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_17sdp"
+                    android:layout_marginRight="@dimen/_17sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:orientation="horizontal"
                     android:background="@color/white"
                     tools:ignore="UseCompoundDrawables,UselessParent">
@@ -153,9 +154,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="6dp"
-                        android:layout_marginRight="6dp"
-                        android:src="@drawable/ic_arrow_forward"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        app:srcCompat="@drawable/ic_arrow_forward"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -166,7 +167,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/random"
                         android:textColor="@color/blue_700"
-                        android:textSize="30sp" />
+                        android:textSize="@dimen/_24ssp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -188,19 +189,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 tools:ignore="UselessParent"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp">
+                android:paddingTop="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginRight="30dp"
-                    app:cardCornerRadius="25dp"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginLeft="@dimen/_23sdp"
+                    android:layout_marginEnd="@dimen/_23sdp"
+                    android:layout_marginRight="@dimen/_23sdp"
+                    app:cardCornerRadius="@dimen/_20sdp"
                     app:strokeColor="@color/white"
-                    app:strokeWidth="2dp"
+                    app:strokeWidth="@dimen/_2sdp"
                     app:cardBackgroundColor="@color/blue_700">
 
                     <LinearLayout
@@ -216,10 +217,10 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/amaticsc_regular"
                             android:gravity="center"
-                            android:padding="30dp"
+                            android:padding="@dimen/_23sdp"
                             android:layout_gravity="center_horizontal"
                             android:textColor="@color/white"
-                            android:textSize="40sp"
+                            android:textSize="@dimen/_31ssp"
                             android:textStyle="bold"
                             tools:text="Lorem Ipsum"/>
 
@@ -232,31 +233,31 @@
                                 android:id="@+id/btn_copy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_copy"
+                                app:srcCompat="@drawable/ic_copy"
                                 android:background="@drawable/bg_button"
-                                android:padding="15dp"
+                                android:padding="@dimen/_12sdp"
                                 tools:ignore="ContentDescription" />
 
                             <ImageButton
                                 android:id="@+id/btn_share"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_share"
-                                android:layout_marginLeft="30dp"
-                                android:layout_marginStart="30dp"
-                                android:layout_marginRight="30dp"
-                                android:layout_marginEnd="30dp"
+                                app:srcCompat="@drawable/ic_share"
+                                android:layout_marginLeft="@dimen/_23sdp"
+                                android:layout_marginStart="@dimen/_23sdp"
+                                android:layout_marginRight="@dimen/_23sdp"
+                                android:layout_marginEnd="@dimen/_23sdp"
                                 android:background="@drawable/bg_button"
-                                android:padding="15dp"
+                                android:padding="@dimen/_12sdp"
                                 tools:ignore="ContentDescription" />
 
                             <ImageButton
                                 android:id="@+id/btn_addtofavs"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_star"
+                                app:srcCompat="@drawable/ic_star"
                                 android:background="@drawable/bg_button"
-                                android:padding="15dp"
+                                android:padding="@dimen/_12sdp"
                                 tools:ignore="ContentDescription" />
                         </LinearLayout>
 
@@ -266,10 +267,10 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/oswald_light"
                             android:gravity="center"
-                            android:padding="30dp"
+                            android:padding="@dimen/_23sdp"
                             android:layout_gravity="center_horizontal"
                             android:textColor="@color/white"
-                            android:textSize="25sp"
+                            android:textSize="@dimen/_19ssp"
                             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
 
                     </LinearLayout>

@@ -25,24 +25,26 @@ class InflatedItemFragment: DialogFragment() {
     private lateinit var share: ImageButton
     private lateinit var addToFavs: ImageButton
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NO_FRAME, R.style.NoActionBarTheme)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentInflatedItemBinding.inflate(inflater,container,false)
-        copy = binding.btnCopy
-        share = binding.btnShare
-        addToFavs = binding.btnAddtofavs
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        copy = binding.btnCopy
+        share = binding.btnShare
+        addToFavs = binding.btnAddtofavs
+
         dialog!!.let {
-            val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.MATCH_PARENT
-            it.window!!.setLayout(width, height)
 
             val mArgs = arguments
             val myItem = mArgs!!.getString("Item")

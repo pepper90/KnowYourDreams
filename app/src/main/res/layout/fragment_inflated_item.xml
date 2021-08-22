@@ -14,19 +14,19 @@
                 android:background="@drawable/bg_inflated_dream"
                 android:orientation="vertical"
                 tools:ignore="UselessParent"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp">
+                android:paddingTop="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginRight="30dp"
-                    app:cardCornerRadius="25dp"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginLeft="@dimen/_23sdp"
+                    android:layout_marginEnd="@dimen/_23sdp"
+                    android:layout_marginRight="@dimen/_23sdp"
+                    app:cardCornerRadius="@dimen/_20sdp"
                     app:strokeColor="@color/white"
-                    app:strokeWidth="2dp"
+                    app:strokeWidth="@dimen/_2sdp"
                     app:cardBackgroundColor="@color/blue_700">
 
                     <LinearLayout
@@ -42,10 +42,10 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/amaticsc_regular"
                             android:gravity="center"
-                            android:padding="20dp"
+                            android:padding="@dimen/_17sdp"
                             android:layout_gravity="center_horizontal"
                             android:textColor="@color/white"
-                            android:textSize="45sp"
+                            android:textSize="@dimen/_35ssp"
                             android:textStyle="bold"
                             tools:text="Lorem Ipsum"/>
 
@@ -53,37 +53,37 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:padding="15dp">
+                            android:padding="@dimen/_12sdp">
 
                             <ImageButton
                                 android:id="@+id/btn_copy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_copy"
+                                app:srcCompat="@drawable/ic_copy"
                                 android:background="@drawable/bg_button"
-                                android:padding="15dp"
+                                android:padding="@dimen/_12sdp"
                                 tools:ignore="ContentDescription" />
 
                             <ImageButton
                                 android:id="@+id/btn_share"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_share"
-                                android:layout_marginLeft="30dp"
-                                android:layout_marginStart="30dp"
-                                android:layout_marginRight="30dp"
-                                android:layout_marginEnd="30dp"
+                                app:srcCompat="@drawable/ic_share"
+                                android:layout_marginLeft="@dimen/_23sdp"
+                                android:layout_marginStart="@dimen/_23sdp"
+                                android:layout_marginRight="@dimen/_23sdp"
+                                android:layout_marginEnd="@dimen/_23sdp"
                                 android:background="@drawable/bg_button"
-                                android:padding="15dp"
+                                android:padding="@dimen/_12sdp"
                                 tools:ignore="ContentDescription" />
 
                             <ImageButton
                                 android:id="@+id/btn_addtofavs"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_star"
+                                app:srcCompat="@drawable/ic_star"
                                 android:background="@drawable/bg_button"
-                                android:padding="15dp"
+                                android:padding="@dimen/_12sdp"
                                 tools:ignore="ContentDescription" />
                         </LinearLayout>
                     </LinearLayout>
@@ -106,23 +106,23 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_linear3"
                     android:orientation="vertical"
-                    android:paddingBottom="15dp">
+                    android:paddingBottom="@dimen/_12sdp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginStart="@dimen/_17sdp"
+                        android:layout_marginLeft="@dimen/_17sdp"
+                        android:layout_marginEnd="@dimen/_17sdp"
+                        android:layout_marginRight="@dimen/_17sdp"
                         android:orientation="horizontal"
                         tools:ignore="UseCompoundDrawables,UselessParent">
 
                         <View
-                            android:layout_width="2dp"
+                            android:layout_width="@dimen/_2sdp"
                             android:layout_height="match_parent"
-                            android:layout_marginEnd="15dp"
-                            android:layout_marginRight="15dp"
+                            android:layout_marginEnd="@dimen/_12sdp"
+                            android:layout_marginRight="@dimen/_12sdp"
                             android:background="@color/blue_700"/>
 
                         <TextView
@@ -132,7 +132,7 @@
                             android:fontFamily="@font/oswald_light"
                             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                             android:textColor="@color/blue_700"
-                            android:textSize="25sp"/>
+                            android:textSize="@dimen/_19ssp"/>
 
                     </LinearLayout>
                 </LinearLayout>

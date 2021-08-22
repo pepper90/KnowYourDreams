@@ -35,19 +35,19 @@
                 android:text="@string/knowyourdreams"
                 android:textColor="@color/white"
                 android:fontFamily="@font/amaticsc_bold"
-                android:textSize="40sp"
+                android:textSize="@dimen/_31ssp"
                 android:textAlignment="center"
-                android:paddingBottom="20dp"/>
+                android:paddingBottom="@dimen/_17sdp"/>
 
             <SearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="@dimen/_17sdp"
+                android:layout_marginStart="@dimen/_17sdp"
+                android:layout_marginRight="@dimen/_17sdp"
+                android:layout_marginEnd="@dimen/_17sdp"
+                android:layout_marginBottom="@dimen/_17sdp"
                 android:background="@drawable/bg_search"
                 android:queryHint="@string/whatDream"
                 android:clickable="true"
@@ -56,7 +56,9 @@
                 android:searchHintIcon="@drawable/ic_search"
                 app:searchIcon="@drawable/ic_search"
                 app:searchHintIcon="@drawable/ic_search"
-                tools:ignore="UnusedAttribute" />
+                tools:ignore="UnusedAttribute"
+                android:queryBackground="@android:color/transparent"
+                app:queryBackground="@android:color/transparent"/>
 
         </LinearLayout>
 
@@ -68,10 +70,10 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/my_nav"
+        android:layout_above="@id/bottomNavigation"
         android:layout_below="@id/toolbar"
-        android:layout_above="@id/bottomNavigation"/>
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/my_nav" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -79,7 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_navigation"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        app:menu="@menu/bottom_navigation"/>
 
 </RelativeLayout>

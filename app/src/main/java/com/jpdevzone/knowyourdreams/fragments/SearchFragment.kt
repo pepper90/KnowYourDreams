@@ -47,10 +47,7 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
 
         mRecyclerView1 = binding.alphabet
         mRecyclerView1.setHasFixedSize(true)
-        mLayoutManager1 = LinearLayoutManager(
-            context,
-            RecyclerView.HORIZONTAL, false
-        )
+        mLayoutManager1 = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         mAdapter1 = AlphabetAdapter(alphabet(), this)
 
         mRecyclerView1.layoutManager = mLayoutManager1
@@ -58,12 +55,7 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
 
         mRecyclerView2 = binding.searchRecyclerView
         mRecyclerView2.setHasFixedSize(true)
-        mRecyclerView2.addItemDecoration(
-            DividerItemDecoration(
-                this.context,
-                DividerItemDecoration.VERTICAL
-            )
-        )
+        mRecyclerView2.addItemDecoration(DividerItemDecoration(this.context,DividerItemDecoration.VERTICAL))
         mLayoutManager2 = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mAdapter2 = RecyclerViewAdapter(Constants.dreamList, this)
 
