@@ -83,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        app:menu="@menu/bottom_navigation"/>
+        app:menu="@menu/bottom_navigation"
+        app:itemIconSize="@dimen/design_bottom_navigation_icon_size"/>
 
 </RelativeLayout>

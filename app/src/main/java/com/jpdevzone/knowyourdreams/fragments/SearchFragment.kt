@@ -57,7 +57,7 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         mRecyclerView2.setHasFixedSize(true)
         mRecyclerView2.addItemDecoration(DividerItemDecoration(this.context,DividerItemDecoration.VERTICAL))
         mLayoutManager2 = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        mAdapter2 = RecyclerViewAdapter(Constants.dreamList, this)
+        mAdapter2 = RecyclerViewAdapter(Constants.dreamList as ArrayList<Dream>, this)
 
         mRecyclerView2.layoutManager = mLayoutManager2
         mRecyclerView2.adapter = mAdapter2
@@ -92,33 +92,33 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         when (letter) {
             "А" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0,0)}
             "Б" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(140,0)}
-            "В" -> {}
-            "Г" -> {}
-            "Д" -> {}
-            "Е" -> {}
-            "Ж" -> {}
-            "З" -> {}
-            "И" -> {}
-            "Й" -> {}
-            "К" -> {}
-            "Л" -> {}
-            "М" -> {}
-            "Н" -> {}
-            "О" -> {}
-            "П" -> {}
-            "Р" -> {}
-            "С" -> {}
-            "Т" -> {}
-            "У" -> {}
-            "Ф" -> {}
-            "Х" -> {}
-            "Ц" -> {}
-            "Ч" -> {}
-            "Ш" -> {}
-            "Щ" -> {}
-            "Ъ" -> {}
-            "Ю" -> {}
-            "Я" -> {}
+            "В" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(436,0)}
+            "Г" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(612,0)}
+            "Д" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(809,0)}
+            "Е" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(985,0)}
+            "Ж" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(1073,0)}
+            "З" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(1129,0)}
+            "И" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(1305,0)}
+            "Й" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(1434,0)}
+            "К" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(1438,0)}
+            "Л" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(1861,0)}
+            "М" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(1994,0)}
+            "Н" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(2224,0)}
+            "О" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(2383,0)}
+            "П" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(2558,0)}
+            "Р" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(3209,0)}
+            "С" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(3406,0)}
+            "Т" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(3799,0)}
+            "У" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(3941,0)}
+            "Ф" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(4004,0)}
+            "Х" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(4091,0)}
+            "Ц" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(4184,0)}
+            "Ч" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(4234,0)}
+            "Ш" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(4315,0)}
+            "Щ" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(4384,0)}
+            "Ъ" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(4399,0)}
+            "Ю" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(4401,0)}
+            "Я" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(4415,0)}
         }
     }
 }
