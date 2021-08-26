@@ -5,6 +5,7 @@ object Constants {
     const val SHARED_PREFERENCES = "shared_preferences"
     const val SP_HISTORY = "shared_preferences_history"
     const val SP_FAVOURITES = "shared_preferences_favourites"
+    const val SP_AD_COUNTER = "shared_preferences_ad_counter"
 
     var dreamList = one()+
                     two()+
@@ -41,6 +42,8 @@ object Constants {
 
     var favouritesEmpty = ArrayList<Dream>()
     var historyEmpty = ArrayList<Dream>()
+
+    var adCounter = 0
 
 
     fun one(): ArrayList<Dream> {

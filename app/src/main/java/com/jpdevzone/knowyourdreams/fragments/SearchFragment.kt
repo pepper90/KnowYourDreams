@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.jpdevzone.knowyourdreams.Constants
 import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.R
@@ -25,6 +28,7 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
     private lateinit var mLayoutManager2: RecyclerView.LayoutManager
     private lateinit var mAdapter1: RecyclerView.Adapter<*>
     private lateinit var mAdapter2: RecyclerView.Adapter<*>
+    private var mInterstitialAd: InterstitialAd? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +66,9 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         mRecyclerView2.layoutManager = mLayoutManager2
         mRecyclerView2.adapter = mAdapter2
 
+        MobileAds.initialize(requireContext()) {}
+        createPersonalizedAdd()
+
         return binding.root
     }
 
@@ -73,19 +80,6 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
             list.add("$i")
         }
         return list
-    }
-
-    override fun onItemClick(item: String, definition: String, currentItem: Dream) {
-        Constants.history.add(currentItem)
-        val args = Bundle()
-        args.putString("Item", item)
-        args.putString("Definition", definition)
-
-        val inflatedFragment = InflatedItemFragment()
-        inflatedFragment.arguments = args
-        val fm = requireActivity().supportFragmentManager
-
-        inflatedFragment.show(fm, "inflatedItem")
     }
 
     override fun onLetterClick(letter: String) {
@@ -121,4 +115,70 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
             "Я" -> {(mRecyclerView2.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(4415,0)}
         }
     }
+
+    override fun onItemClick(item: String, definition: String, currentItem: Dream) {
+        Constants.adCounter++
+        when (Constants.adCounter % 5 == 0) {
+            true -> {
+                if (mInterstitialAd != null) {
+                    mInterstitialAd?.show(requireActivity())
+                    Constants.history.add(currentItem)
+                    val args = Bundle()
+                    args.putString("Item", item)
+                    args.putString("Definition", definition)
+
+                    val inflatedFragment = InflatedItemFragment()
+                    inflatedFragment.arguments = args
+                    val fm = requireActivity().supportFragmentManager
+
+                    inflatedFragment.show(fm, "inflatedItem")
+                    createPersonalizedAdd()
+                } else {
+                    Constants.history.add(currentItem)
+                    val args = Bundle()
+                    args.putString("Item", item)
+                    args.putString("Definition", definition)
+
+                    val inflatedFragment = InflatedItemFragment()
+                    inflatedFragment.arguments = args
+                    val fm = requireActivity().supportFragmentManager
+
+                    inflatedFragment.show(fm, "inflatedItem")
+                    createPersonalizedAdd()
+                }
+            }
+
+            false -> {
+                Constants.history.add(currentItem)
+                val args = Bundle()
+                args.putString("Item", item)
+                args.putString("Definition", definition)
+
+                val inflatedFragment = InflatedItemFragment()
+                inflatedFragment.arguments = args
+                val fm = requireActivity().supportFragmentManager
+
+                inflatedFragment.show(fm, "inflatedItem")
+            }
+        }
+        println(Constants.adCounter)
+    }
+
+    private fun createPersonalizedAdd() {
+        val adRequest = AdRequest.Builder().build()
+        createInterstitialAdd(adRequest)
+    }
+
+    private fun createInterstitialAdd(adRequest: AdRequest) {
+        InterstitialAd.load(requireContext(),"ca-app-pub-7588987461083278/8656642342", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                mInterstitialAd = interstitialAd
+            }
+        })
+    }
+
 }

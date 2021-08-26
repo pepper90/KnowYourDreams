@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -57,9 +56,9 @@ class Dashboard : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
         fragmentManager.beginTransaction().apply {
-            add(R.id.fragmentContainer, historyFragment, getString(R.string.myHistory)).setMaxLifecycle(historyFragment,Lifecycle.State.CREATED).hide(historyFragment)
-            add(R.id.fragmentContainer, favouritesFragment, getString(R.string.myFavourites)).setMaxLifecycle(historyFragment,Lifecycle.State.CREATED).hide(favouritesFragment)
-            add(R.id.fragmentContainer, searchFragment, getString(R.string.mySearch)).setMaxLifecycle(historyFragment,Lifecycle.State.RESUMED)
+            add(R.id.fragmentContainer, historyFragment, getString(R.string.myHistory)).hide(historyFragment)
+            add(R.id.fragmentContainer, favouritesFragment, getString(R.string.myFavourites)).hide(favouritesFragment)
+            add(R.id.fragmentContainer, searchFragment, getString(R.string.mySearch))
         }.commit()
 
         initListeners()
@@ -103,6 +102,7 @@ class Dashboard : AppCompatActivity() {
         val json2 = gson.toJson(Constants.favourites)
         editor.putString(Constants.SP_HISTORY, json1)
         editor.putString(Constants.SP_FAVOURITES, json2)
+        editor.putInt(Constants.SP_AD_COUNTER, Constants.adCounter)
         editor.apply()
     }
 
@@ -115,6 +115,7 @@ class Dashboard : AppCompatActivity() {
         val type = object : TypeToken<ArrayList<Dream>>() {}.type
         history = gson.fromJson(json1, type)
         favourites = gson.fromJson(json2, type)
+        Constants.adCounter = sharedPreferences.getInt(Constants.SP_AD_COUNTER, 0)
 
         if (history == null) {
             Constants.history = Constants.historyEmpty
@@ -137,12 +138,18 @@ class Dashboard : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        counter++
-        if (counter==1) {
-            saveData()
-            Toasty.custom(this, R.string.toast,R.drawable.ic_exit,R.color.blue_700,Toast.LENGTH_LONG,true, true).show()
-        }else {
-            finish()
+        if (!searchView.isIconified) {
+            searchView.isIconified = true
+            searchView.isIconified = true
+            searchView.clearFocus()
+        } else {
+            counter++
+            if (counter==1) {
+                saveData()
+                Toasty.custom(this, R.string.toast,R.drawable.ic_exit,R.color.blue_700,Toast.LENGTH_LONG,true, true).show()
+            } else {
+                finish()
+            }
         }
     }
 }
