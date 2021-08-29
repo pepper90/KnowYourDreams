@@ -12,11 +12,13 @@ import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.R
 import es.dmoral.toasty.Toasty
 
-class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(), Filterable {
-    private var tempDreams = ArrayList<Dream>()
+class RecyclerViewAdapter(private var dreams: ArrayList<Dream>, private val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(), Filterable {
+    private var dreamsFull = ArrayList<Dream>()
+
     init {
-        tempDreams = dreams
+        dreamsFull = ArrayList(dreams)
     }
+
 
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var dream: TextView = itemView.findViewById(R.id.tv_item)
@@ -28,9 +30,9 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
 
         override fun onClick(v: View?) {
             val position: Int = absoluteAdapterPosition
-            val currentItem = tempDreams[position]
-            val item = tempDreams[position].dreamItem
-            val definition = tempDreams[position].dreamDefinition
+            val currentItem = dreams[position]
+            val item = currentItem.dreamItem
+            val definition = currentItem.dreamDefinition
             if (position != RecyclerView.NO_POSITION) {
                 listener.onItemClick(item,definition,currentItem)
             }
@@ -43,7 +45,7 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val currentItem = tempDreams[position]
+        val currentItem = dreams[position]
         viewHolder.dream.text = currentItem.dreamItem
 
         viewHolder.icon.setOnClickListener {
@@ -57,7 +59,7 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
         }
     }
 
-    override fun getItemCount() = tempDreams.size
+    override fun getItemCount() = dreams.size
 
     interface OnItemClickListener {
         fun onItemClick(item: String, definition: String, currentItem: Dream)
@@ -66,26 +68,33 @@ class RecyclerViewAdapter(private val dreams: ArrayList<Dream>, private val list
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                tempDreams = if (constraint==null || constraint.isEmpty()) {
-                    dreams
+                val filteredDreams = ArrayList<Dream>()
+
+                if (constraint==null || constraint.isEmpty()) {
+                    filteredDreams.addAll(dreamsFull)
                 } else {
-                    val resultDreams = ArrayList<Dream>()
-                    for (row in dreams) {
-                        if (row.dreamItem.lowercase().startsWith(constraint.toString().lowercase().trim())) {
-                            resultDreams.add(row)
+
+                    for (row in dreamsFull) {
+                        if (row.dreamItem.lowercase()
+                                .startsWith(constraint.toString().lowercase().trim())
+                        ) {
+                            filteredDreams.add(row)
                         }
                     }
-                    resultDreams
                 }
-                val filterResults = FilterResults()
-                filterResults.values = tempDreams
-                return filterResults
+
+                val results = FilterResults()
+                results.values = filteredDreams
+
+                return results
             }
 
             @SuppressLint("NotifyDataSetChanged")
+            @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                @Suppress("UNCHECKED_CAST")
-                tempDreams = results?.values as ArrayList<Dream>
+                dreams.clear()
+                dreams.addAll(results?.values as ArrayList<Dream>)
+                notifyItemRangeChanged(0,dreams.size)
                 notifyDataSetChanged()
             }
         }

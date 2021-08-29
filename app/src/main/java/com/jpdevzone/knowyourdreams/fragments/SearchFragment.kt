@@ -35,7 +35,11 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val searchView = activity?.findViewById<SearchView>(R.id.searchView)
         searchView?.imeOptions = EditorInfo.IME_ACTION_DONE
         searchView?.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
@@ -59,7 +63,7 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
 
         mRecyclerView2 = binding.searchRecyclerView
         mRecyclerView2.setHasFixedSize(true)
-        mRecyclerView2.addItemDecoration(DividerItemDecoration(this.context,DividerItemDecoration.VERTICAL))
+        mRecyclerView2.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         mLayoutManager2 = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mAdapter2 = RecyclerViewAdapter(Constants.dreamList as ArrayList<Dream>, this)
 
@@ -68,8 +72,6 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
 
         MobileAds.initialize(requireContext()) {}
         createPersonalizedAdd()
-
-        return binding.root
     }
 
     private fun alphabet(): ArrayList<String> {
@@ -180,5 +182,4 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
             }
         })
     }
-
 }
