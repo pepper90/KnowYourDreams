@@ -68,7 +68,7 @@ class HistoryFragment : Fragment(), HistoryAdapter.OnItemClickListener {
         dream.append(binding.randomDream.text)
         dream.append(": ")
         dream.append(binding.randomDefinition.text)
-        dream.append("\n\nКопирано от БГ Съновник / Google Play: Link")
+        dream.append("\n\nКопирано от СъновникБГ - тълкуване на сънища / Google Play: https://play.google.com/store/apps/details?id=com.jpdevzone.knowyourdreams")
 
         copy.setOnClickListener {
             val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

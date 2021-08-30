@@ -60,7 +60,7 @@ class InflatedItemFragment: DialogFragment() {
             dream.append(binding.inflatedDream.text)
             dream.append(": ")
             dream.append(binding.inflatedDefinition.text)
-            dream.append("\n\nКопирано от БГ Съновник / Google Play: Link")
+            dream.append("\n\nКопирано от СъновникБГ - тълкуване на сънища / Google Play: https://play.google.com/store/apps/details?id=com.jpdevzone.knowyourdreams")
 
             copy.setOnClickListener {
                 val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

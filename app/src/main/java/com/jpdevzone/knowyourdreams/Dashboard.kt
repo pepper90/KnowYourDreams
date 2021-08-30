@@ -138,18 +138,12 @@ class Dashboard : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (!searchView.isIconified) {
-            searchView.isIconified = true
-            searchView.isIconified = true
-            searchView.clearFocus()
+        counter++
+        if (counter==1) {
+            saveData()
+            Toasty.custom(this, R.string.toast,R.drawable.ic_exit,R.color.blue_700,Toast.LENGTH_LONG,true, true).show()
         } else {
-            counter++
-            if (counter==1) {
-                saveData()
-                Toasty.custom(this, R.string.toast,R.drawable.ic_exit,R.color.blue_700,Toast.LENGTH_LONG,true, true).show()
-            } else {
-                finish()
-            }
+            finish()
         }
     }
 }

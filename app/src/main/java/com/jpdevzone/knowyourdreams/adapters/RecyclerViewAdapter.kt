@@ -91,11 +91,14 @@ class RecyclerViewAdapter(private var dreams: ArrayList<Dream>, private val list
 
             @SuppressLint("NotifyDataSetChanged")
             @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            override fun publishResults(constraint: CharSequence?, results: FilterResults) {
                 dreams.clear()
-                dreams.addAll(results?.values as ArrayList<Dream>)
-                notifyItemRangeChanged(0,dreams.size)
-                notifyDataSetChanged()
+                dreams.addAll(results.values as ArrayList<Dream>)
+
+                if(dreams.size > 0) {
+                    notifyItemRangeChanged(0, dreams.size)
+                    notifyDataSetChanged()
+                }
             }
         }
     }

@@ -22,6 +22,7 @@ import com.jpdevzone.knowyourdreams.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, AlphabetAdapter.OnLetterClickListener {
     private lateinit var binding: FragmentSearchBinding
+    private lateinit var searchView: SearchView
     private lateinit var mRecyclerView1: RecyclerView
     private lateinit var mRecyclerView2: RecyclerView
     private lateinit var mLayoutManager1: RecyclerView.LayoutManager
@@ -40,9 +41,9 @@ class SearchFragment : Fragment(), RecyclerViewAdapter.OnItemClickListener, Alph
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val searchView = activity?.findViewById<SearchView>(R.id.searchView)
-        searchView?.imeOptions = EditorInfo.IME_ACTION_DONE
-        searchView?.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        searchView = activity?.findViewById(R.id.searchView)!!
+        searchView.imeOptions = EditorInfo.IME_ACTION_DONE
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
