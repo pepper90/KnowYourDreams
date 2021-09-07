@@ -4,13 +4,10 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.jpdevzone.knowyourdreams.Constants
 import com.jpdevzone.knowyourdreams.Dream
 import com.jpdevzone.knowyourdreams.R
-import es.dmoral.toasty.Toasty
 
 class RecyclerViewAdapter(private var dreams: ArrayList<Dream>, private val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(), Filterable {
     private var dreamsFull = ArrayList<Dream>()
@@ -22,7 +19,6 @@ class RecyclerViewAdapter(private var dreams: ArrayList<Dream>, private val list
 
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var dream: TextView = itemView.findViewById(R.id.tv_item)
-        val icon: ImageButton = itemView.findViewById(R.id.addToFavourites)
 
         init {
             itemView.setOnClickListener(this)
@@ -47,16 +43,6 @@ class RecyclerViewAdapter(private var dreams: ArrayList<Dream>, private val list
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem = dreams[position]
         viewHolder.dream.text = currentItem.dreamItem
-
-        viewHolder.icon.setOnClickListener {
-            if (!Constants.favourites.contains(currentItem)) {
-                Constants.favourites.add(currentItem)
-                viewHolder.icon.startAnimation(AnimationUtils.loadAnimation(viewHolder.icon.context, R.anim.shake))
-                Toasty.custom(viewHolder.icon.context, R.string.addedToFavs,R.drawable.ic_star_full,R.color.blue_700,Toast.LENGTH_SHORT,true, true).show()
-            }else{
-                Toasty.custom(viewHolder.icon.context, R.string.alreadyAdded, R.drawable.ic_attention,R.color.blue_700,Toast.LENGTH_SHORT,true, true).show()
-            }
-        }
     }
 
     override fun getItemCount() = dreams.size
@@ -72,6 +58,7 @@ class RecyclerViewAdapter(private var dreams: ArrayList<Dream>, private val list
 
                 if (constraint==null || constraint.isEmpty()) {
                     filteredDreams.addAll(dreamsFull)
+                    notifyItemRangeChanged(0, dreams.size)
                 } else {
 
                     for (row in dreamsFull) {
