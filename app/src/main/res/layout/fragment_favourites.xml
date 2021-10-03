@@ -5,21 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_700"
-    tools:context=".fragments.FavouritesFragment"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    tools:context=".favourites.FavouritesFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <LinearLayout
-            android:id="@+id/favouritesLinear"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@color/blue_700"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/amaticsc_bold"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="@dimen/_17sdp"
+                    android:text="@string/knowyourdreams"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_31ssp"/>
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:id="@+id/favouritesLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@color/blue_700"
@@ -46,20 +83,20 @@
                     <ImageView
                         android:id="@+id/iv_favourites"
                         android:layout_width="0dp"
-                        android:layout_weight="0.1"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="0.1"
                         app:srcCompat="@drawable/ic_star_full_favourites"
                         tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_favourites"
                         android:layout_width="0dp"
-                        android:layout_weight="0.8"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="0.8"
                         android:fontFamily="@font/amaticsc_bold"
                         android:gravity="center_vertical"
                         android:text="@string/saved"
@@ -69,13 +106,13 @@
                     <ImageButton
                         android:id="@+id/delete_all_favourites"
                         android:layout_width="0dp"
-                        android:layout_weight="0.1"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.1"
+                        android:background="@color/white"
                         android:scaleX="1.6"
                         android:scaleY="1.6"
                         app:srcCompat="@drawable/ic_delete"
-                        android:background="@color/white"
-                        android:layout_gravity="center"
                         tools:ignore="ContentDescription" />
 
                 </LinearLayout>
@@ -104,13 +141,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/amaticsc_bold"
-                android:text="@string/empty2"
                 android:gravity="center_horizontal"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/empty2"
                 android:textAlignment="center"
                 android:textColor="@color/blue_700"
                 android:textSize="@dimen/_19ssp"
-                android:visibility="gone"
-                android:padding="@dimen/_5sdp"/>
+                android:visibility="gone"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/favouritesRecyclerView"
@@ -126,9 +163,9 @@
             android:id="@+id/favouritesLinear2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/favouritesCardView"
             android:background="@color/blue_700"
-            android:orientation="vertical"
-            android:layout_below="@+id/favouritesCardView">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -146,8 +183,8 @@
                     android:layout_marginEnd="@dimen/_17sdp"
                     android:layout_marginRight="@dimen/_17sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:orientation="horizontal"
                     android:background="@color/white"
+                    android:orientation="horizontal"
                     tools:ignore="UseCompoundDrawables,UselessParent">
 
                     <ImageView
@@ -181,16 +218,16 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:orientation="vertical"
-            android:background="@drawable/bg_random_dream">
+            android:background="@drawable/bg_random_dream"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                tools:ignore="UselessParent"
                 android:paddingTop="@dimen/_12sdp"
-                android:paddingBottom="@dimen/_12sdp">
+                android:paddingBottom="@dimen/_12sdp"
+                tools:ignore="UselessParent">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -199,26 +236,26 @@
                     android:layout_marginLeft="@dimen/_23sdp"
                     android:layout_marginEnd="@dimen/_23sdp"
                     android:layout_marginRight="@dimen/_23sdp"
+                    app:cardBackgroundColor="@color/blue_700"
                     app:cardCornerRadius="@dimen/_20sdp"
                     app:strokeColor="@color/white"
-                    app:strokeWidth="@dimen/_2sdp"
-                    app:cardBackgroundColor="@color/blue_700">
+                    app:strokeWidth="@dimen/_2sdp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/random_dream"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:fontFamily="@font/amaticsc_regular"
                             android:gravity="center"
                             android:padding="@dimen/_23sdp"
-                            android:layout_gravity="center_horizontal"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_31ssp"
                             android:textStyle="bold"
@@ -233,31 +270,31 @@
                                 android:id="@+id/btn_copy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:srcCompat="@drawable/ic_copy"
                                 android:background="@drawable/bg_button"
                                 android:padding="@dimen/_12sdp"
+                                app:srcCompat="@drawable/ic_copy"
                                 tools:ignore="ContentDescription" />
 
                             <ImageButton
                                 android:id="@+id/btn_share"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:srcCompat="@drawable/ic_share"
-                                android:layout_marginLeft="@dimen/_23sdp"
                                 android:layout_marginStart="@dimen/_23sdp"
-                                android:layout_marginRight="@dimen/_23sdp"
+                                android:layout_marginLeft="@dimen/_23sdp"
                                 android:layout_marginEnd="@dimen/_23sdp"
+                                android:layout_marginRight="@dimen/_23sdp"
                                 android:background="@drawable/bg_button"
                                 android:padding="@dimen/_12sdp"
+                                app:srcCompat="@drawable/ic_share"
                                 tools:ignore="ContentDescription" />
 
                             <ImageButton
                                 android:id="@+id/btn_addtofavs"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:srcCompat="@drawable/ic_star"
                                 android:background="@drawable/bg_button"
                                 android:padding="@dimen/_12sdp"
+                                app:srcCompat="@drawable/ic_star"
                                 tools:ignore="ContentDescription" />
                         </LinearLayout>
 
@@ -265,10 +302,10 @@
                             android:id="@+id/random_definition"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:fontFamily="@font/oswald_light"
                             android:gravity="center"
                             android:padding="@dimen/_23sdp"
-                            android:layout_gravity="center_horizontal"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_19ssp"
                             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
