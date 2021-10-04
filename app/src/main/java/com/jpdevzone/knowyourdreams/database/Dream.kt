@@ -10,7 +10,6 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
-@Parcelize
 @Entity(tableName = "dream_list_table")
 data class Dream(
     @PrimaryKey(autoGenerate = false)
@@ -24,7 +23,7 @@ data class Dream(
 
     @ColumnInfo
     var isChecked: Boolean
-) : Parcelable, BaseObservable() {
+) : BaseObservable() {
     @Ignore
     @Bindable
     fun getStatusChecked(): Boolean {
