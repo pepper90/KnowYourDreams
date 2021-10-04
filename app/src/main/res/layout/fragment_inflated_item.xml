@@ -89,7 +89,7 @@
                             android:id="@+id/btn_addtofavs"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/ic_star"
+                            app:srcCompat="@drawable/ic_inflated_star_outline"
                             android:background="@drawable/bg_button"
                             android:padding="@dimen/_12sdp"
                             tools:ignore="ContentDescription" />

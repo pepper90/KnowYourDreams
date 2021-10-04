@@ -12,6 +12,9 @@ interface DreamDatabaseDao {
     @Update
     fun update(dream: Dream)
 
+    @Query("UPDATE dream_list_table SET isChecked = :status WHERE id = :key" )
+    fun updateById(key: Int, status: Boolean): Dream
+
     @Query("SELECT * from dream_list_table WHERE id = :key" )
     fun get(key: Int): LiveData<Dream>
 

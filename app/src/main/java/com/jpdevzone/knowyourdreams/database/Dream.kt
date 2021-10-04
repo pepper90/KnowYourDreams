@@ -1,5 +1,6 @@
 package com.jpdevzone.knowyourdreams.database
 
+import android.os.Parcelable
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
@@ -7,7 +8,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "dream_list_table")
 data class Dream(
     @PrimaryKey(autoGenerate = false)
@@ -21,7 +24,7 @@ data class Dream(
 
     @ColumnInfo
     var isChecked: Boolean
-) : BaseObservable() {
+) : Parcelable, BaseObservable() {
     @Ignore
     @Bindable
     fun getStatusChecked(): Boolean {

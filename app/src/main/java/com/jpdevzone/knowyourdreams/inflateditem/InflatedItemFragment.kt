@@ -21,14 +21,6 @@ import com.jpdevzone.knowyourdreams.databinding.FragmentInflatedItemBinding
 import es.dmoral.toasty.Toasty
 
 class InflatedItemFragment: DialogFragment() {
-//    private lateinit var copy: ImageButton
-//    private lateinit var share: ImageButton
-//    private lateinit var addToFavs: ImageButton
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setStyle(STYLE_NO_FRAME, R.style.NoActionBarTheme)
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +42,41 @@ class InflatedItemFragment: DialogFragment() {
 
         binding.lifecycleOwner = this
 
+        val copy = binding.btnCopy
+        val share = binding.btnShare
+        val addToFavs = binding.btnAddtofavs
+
+        copy.setOnClickListener {
+                val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("dream",
+                    inflatedItemViewModel.stringBuilder(
+                        binding.inflatedDream.text.toString(),
+                        binding.inflatedDefinition.text.toString()
+                    )
+                )
+                clipboard.setPrimaryClip(clip)
+                Toasty.custom(requireContext(), R.string.copied, R.drawable.ic_copy, R.color.blue_700, Toast.LENGTH_SHORT, true, true).show()
+            }
+
+        share.setOnClickListener {
+                val shareIntent = Intent().apply {
+                    this.action = Intent.ACTION_SEND
+                    this.putExtra(
+                        Intent.EXTRA_TEXT,
+                        inflatedItemViewModel.stringBuilder(
+                            binding.inflatedDream.text.toString(),
+                            binding.inflatedDefinition.text.toString()
+                        )
+                    )
+                    this.type = "text/plain"
+                }
+                startActivity(shareIntent)
+            }
+
+        addToFavs.setOnClickListener {
+            addToFavs.setImageResource(R.drawable.ic_inflated_star_full)
+        }
+
         inflatedItemViewModel.navigateBack.observe(viewLifecycleOwner, {
             if (it == true) {
                 this.findNavController().navigate(
@@ -61,50 +88,9 @@ class InflatedItemFragment: DialogFragment() {
         return binding.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-
-
-
-//        copy = binding.btnCopy
-//        share = binding.btnShare
 //        addToFavs = binding.btnAddtofavs
 
-//        dialog!!.let {
 //
-//            val mArgs = arguments
-//            val myItem = mArgs!!.getString("Item")
-//            val myDef = mArgs.getString("Definition")
-//
-//            binding.inflatedDream.text = myItem
-//            binding.inflatedDefinition.text = myDef
-//
-////            val inflated = Dream(
-//////                myItem!!,
-//////                myDef!!
-////            )
-//
-//            val dream = StringBuilder()
-//            dream.append(binding.inflatedDream.text)
-//            dream.append(": ")
-//            dream.append(binding.inflatedDefinition.text)
-//            dream.append("\n\nКопирано от СъновникБГ - тълкуване на сънища / Google Play: https://play.google.com/store/apps/details?id=com.jpdevzone.knowyourdreams")
-//
-//            copy.setOnClickListener {
-//                val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-//                val clip = ClipData.newPlainText("dream", dream)
-//                clipboard.setPrimaryClip(clip)
-//                Toasty.custom(requireActivity(), R.string.copied, R.drawable.ic_copy, R.color.blue_700, Toast.LENGTH_SHORT, true, true).show()
-//            }
-//
-//            share.setOnClickListener {
-//                val shareIntent = Intent().apply {
-//                    this.action = Intent.ACTION_SEND
-//                    this.putExtra(Intent.EXTRA_TEXT, "$dream")
-//                    this.type = "text/plain"
-//                }
-//                startActivity(shareIntent)
-//            }
 //
 ////            addToFavs.setOnClickListener {
 ////                if (Constants.favourites.contains(inflated)) {

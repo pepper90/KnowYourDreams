@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jpdevzone.knowyourdreams.database.Dream
 import com.jpdevzone.knowyourdreams.database.DreamDatabaseDao
+import java.time.zone.ZoneOffsetTransitionRule
 
 class InflatedItemViewModel(dreamId: Int, dataSource: DreamDatabaseDao) : ViewModel() {
     val database = dataSource
@@ -24,5 +25,14 @@ class InflatedItemViewModel(dreamId: Int, dataSource: DreamDatabaseDao) : ViewMo
 
     fun doneNavigating() {
         _navigateBack.value = null
+    }
+
+    fun stringBuilder(dreamItem: String, dreamDefinition: String) : CharSequence {
+        val data = StringBuilder()
+        data.append(dreamItem)
+        data.append(": ")
+        data.append(dreamDefinition)
+        data.append("\n\nКопирано от СъновникБГ - тълкуване на сънища / Google Play: https://play.google.com/store/apps/details?id=com.jpdevzone.knowyourdreams")
+        return data
     }
 }
