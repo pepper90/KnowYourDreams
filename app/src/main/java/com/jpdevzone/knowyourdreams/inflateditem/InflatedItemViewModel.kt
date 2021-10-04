@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jpdevzone.knowyourdreams.database.Dream
 import com.jpdevzone.knowyourdreams.database.DreamDatabaseDao
-import java.time.zone.ZoneOffsetTransitionRule
 
 class InflatedItemViewModel(dreamId: Int, dataSource: DreamDatabaseDao) : ViewModel() {
     val database = dataSource
