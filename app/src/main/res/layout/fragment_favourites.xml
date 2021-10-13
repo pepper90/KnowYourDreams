@@ -1,318 +1,346 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/blue_700"
-    android:scrollbars="none"
-    tools:context=".favourites.FavouritesFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="favouritesViewModel"
+            type="com.jpdevzone.knowyourdreams.favourites.FavouritesViewModel" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_height="match_parent"
+        android:background="@color/blue_700"
+        android:scrollbars="none"
+        tools:context=".favourites.FavouritesFragment">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="@color/blue_700"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:contentInsetEnd="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetRight="0dp"
-            app:contentInsetStart="0dp">
+            android:background="@color/white">
 
-            <LinearLayout
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/blue_700"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/amaticsc_bold"
-                    android:gravity="center_horizontal"
-                    android:paddingBottom="@dimen/_17sdp"
-                    android:text="@string/knowyourdreams"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_31ssp"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/amaticsc_bold"
+                        android:gravity="center_horizontal"
+                        android:paddingBottom="@dimen/_17sdp"
+                        android:text="@string/knowyourdreams"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_31ssp" />
 
-        </androidx.appcompat.widget.Toolbar>
+                </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/favouritesLinear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="@color/blue_700"
-            android:orientation="vertical">
+            </androidx.appcompat.widget.Toolbar>
 
             <LinearLayout
+                android:id="@+id/favouritesLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_linear"
+                android:layout_below="@id/toolbar"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/blue_700"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_17sdp"
-                    android:layout_marginLeft="@dimen/_17sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_17sdp"
-                    android:layout_marginRight="@dimen/_17sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:orientation="horizontal"
-                    tools:ignore="UseCompoundDrawables,UselessParent">
-
-                    <ImageView
-                        android:id="@+id/iv_favourites"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_marginRight="@dimen/_5sdp"
-                        android:layout_weight="0.1"
-                        app:srcCompat="@drawable/ic_star_full_favourites"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:id="@+id/tv_favourites"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="0.8"
-                        android:fontFamily="@font/amaticsc_bold"
-                        android:gravity="center_vertical"
-                        android:text="@string/saved"
-                        android:textColor="@color/teal_200"
-                        android:textSize="@dimen/_24ssp" />
-
-                    <ImageButton
-                        android:id="@+id/delete_all_favourites"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.1"
-                        android:background="@color/white"
-                        android:scaleX="1.6"
-                        android:scaleY="1.6"
-                        app:srcCompat="@drawable/ic_delete"
-                        tools:ignore="ContentDescription" />
-
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/favouritesCardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/favouritesLinear"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="@dimen/_23sdp"
-            android:layout_marginLeft="@dimen/_23sdp"
-            android:layout_marginEnd="@dimen/_23sdp"
-            android:layout_marginRight="@dimen/_23sdp"
-            app:cardCornerRadius="@dimen/_20sdp"
-            app:strokeColor="@color/teal_200"
-            app:strokeWidth="@dimen/_2sdp">
-
-            <TextView
-                android:id="@+id/tv_emptyFavourites"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/amaticsc_bold"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/_5sdp"
-                android:text="@string/empty2"
-                android:textAlignment="center"
-                android:textColor="@color/blue_700"
-                android:textSize="@dimen/_19ssp"
-                android:visibility="gone"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/favouritesRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:scrollbars="none"
-                tools:listitem="@layout/favs_item_dream" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <LinearLayout
-            android:id="@+id/favouritesLinear2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/favouritesCardView"
-            android:background="@color/blue_700"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_linear2"
-                android:orientation="vertical">
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_17sdp"
-                    android:layout_marginLeft="@dimen/_17sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_17sdp"
-                    android:layout_marginRight="@dimen/_17sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    tools:ignore="UseCompoundDrawables,UselessParent">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_marginRight="@dimen/_5sdp"
-                        app:srcCompat="@drawable/ic_arrow_forward"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:fontFamily="@font/amaticsc_bold"
-                        android:gravity="center_vertical"
-                        android:text="@string/random"
-                        android:textColor="@color/blue_700"
-                        android:textSize="@dimen/_24ssp" />
-
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/favouritesLinear2"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/bg_random_dream"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/_12sdp"
-                android:paddingBottom="@dimen/_12sdp"
-                tools:ignore="UselessParent">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_23sdp"
-                    android:layout_marginLeft="@dimen/_23sdp"
-                    android:layout_marginEnd="@dimen/_23sdp"
-                    android:layout_marginRight="@dimen/_23sdp"
-                    app:cardBackgroundColor="@color/blue_700"
-                    app:cardCornerRadius="@dimen/_20sdp"
-                    app:strokeColor="@color/white"
-                    app:strokeWidth="@dimen/_2sdp">
+                    android:background="@drawable/bg_linear"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_marginStart="@dimen/_17sdp"
+                        android:layout_marginLeft="@dimen/_17sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_17sdp"
+                        android:layout_marginRight="@dimen/_17sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables,UselessParent">
+
+                        <ImageView
+                            android:id="@+id/iv_favourites"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:layout_weight="0.1"
+                            app:srcCompat="@drawable/ic_star_full_favourites"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
-                            android:id="@+id/random_dream"
+                            android:id="@+id/tv_favourites"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.8"
+                            android:fontFamily="@font/amaticsc_bold"
+                            android:gravity="center_vertical"
+                            android:text="@string/saved"
+                            android:textColor="@color/teal_200"
+                            android:textSize="@dimen/_24ssp" />
+
+                        <ImageButton
+                            android:id="@+id/delete_all_favourites"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.1"
+                            android:background="@color/white"
+                            android:onClick="@{() -> favouritesViewModel.deleteAll()}"
+                            android:scaleX="1.6"
+                            android:scaleY="1.6"
+                            android:visibility="@{favouritesViewModel.favouritesIsNotEmpty ? View.VISIBLE : View.GONE}"
+                            app:srcCompat="@drawable/ic_delete"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/favouritesCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/favouritesLinear"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="@dimen/_23sdp"
+                android:layout_marginLeft="@dimen/_23sdp"
+                android:layout_marginEnd="@dimen/_23sdp"
+                android:layout_marginRight="@dimen/_23sdp"
+                app:cardCornerRadius="@dimen/_20sdp"
+                app:strokeColor="@color/teal_200"
+                app:strokeWidth="@dimen/_2sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_emptyFavourites"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="-2dp"
+                        android:fontFamily="@font/amaticsc_bold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/empty2"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue_700"
+                        android:textSize="@dimen/_19ssp"
+                        android:visibility="@{favouritesViewModel.favouritesIsNotEmpty ? View.GONE : View.VISIBLE}" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/favouritesRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_emptyFavourites"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:id="@+id/favouritesLinear2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/favouritesCardView"
+                android:background="@color/blue_700"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_linear2"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_17sdp"
+                        android:layout_marginLeft="@dimen/_17sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_17sdp"
+                        android:layout_marginRight="@dimen/_17sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables,UselessParent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            app:srcCompat="@drawable/ic_arrow_forward"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:fontFamily="@font/amaticsc_regular"
-                            android:gravity="center"
-                            android:padding="@dimen/_23sdp"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_31ssp"
-                            android:textStyle="bold"
-                            tools:text="Lorem Ipsum"/>
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/amaticsc_bold"
+                            android:gravity="center_vertical"
+                            android:text="@string/random"
+                            android:textColor="@color/blue_700"
+                            android:textSize="@dimen/_24ssp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/favouritesLinear2"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_random_dream"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    tools:ignore="UselessParent">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_23sdp"
+                        android:layout_marginLeft="@dimen/_23sdp"
+                        android:layout_marginEnd="@dimen/_23sdp"
+                        android:layout_marginRight="@dimen/_23sdp"
+                        app:cardBackgroundColor="@color/blue_700"
+                        app:cardCornerRadius="@dimen/_20sdp"
+                        app:strokeColor="@color/white"
+                        app:strokeWidth="@dimen/_2sdp">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <ImageButton
-                                android:id="@+id/btn_copy"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_button"
-                                android:padding="@dimen/_12sdp"
-                                app:srcCompat="@drawable/ic_copy"
-                                tools:ignore="ContentDescription" />
-
-                            <ImageButton
-                                android:id="@+id/btn_share"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_23sdp"
-                                android:layout_marginLeft="@dimen/_23sdp"
-                                android:layout_marginEnd="@dimen/_23sdp"
-                                android:layout_marginRight="@dimen/_23sdp"
-                                android:background="@drawable/bg_button"
-                                android:padding="@dimen/_12sdp"
-                                app:srcCompat="@drawable/ic_share"
-                                tools:ignore="ContentDescription" />
-
-                            <ImageButton
-                                android:id="@+id/btn_addtofavs"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_button"
-                                android:padding="@dimen/_12sdp"
-                                app:srcCompat="@drawable/ic_inflated_star_full"
-                                tools:ignore="ContentDescription" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/random_definition"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:fontFamily="@font/oswald_light"
+                            android:layout_gravity="center"
                             android:gravity="center"
-                            android:padding="@dimen/_23sdp"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_19ssp"
-                            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+                            android:orientation="vertical">
 
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:id="@+id/random_dream"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="@font/amaticsc_regular"
+                                android:gravity="center"
+                                android:padding="@dimen/_23sdp"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_31ssp"
+                                android:textStyle="bold"
+                                app:favouritesItem="@{favouritesViewModel.randomDream}"
+                                tools:text="Lorem Ipsum" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/btn_copy"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/bg_button"
+                                    android:padding="@dimen/_12sdp"
+                                    app:srcCompat="@drawable/ic_copy"
+                                    tools:ignore="ContentDescription" />
+
+                                <ImageButton
+                                    android:id="@+id/btn_share"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_23sdp"
+                                    android:layout_marginLeft="@dimen/_23sdp"
+                                    android:layout_marginEnd="@dimen/_23sdp"
+                                    android:layout_marginRight="@dimen/_23sdp"
+                                    android:background="@drawable/bg_button"
+                                    android:padding="@dimen/_12sdp"
+                                    app:srcCompat="@drawable/ic_share"
+                                    tools:ignore="ContentDescription" />
+
+                                <CheckBox
+                                    android:id="@+id/btn_addtofavs"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/inflated_selector_is_checked"
+                                    android:button="@null"
+                                    android:checked="@={favouritesViewModel.randomDream.checked}"
+                                    android:onClick="@{() -> favouritesViewModel.updateRandomDream(favouritesViewModel.randomDream.id, favouritesViewModel.randomDream.checked)}"
+                                    tools:ignore="ContentDescription" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/random_definition"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="@font/oswald_light"
+                                android:gravity="center"
+                                android:padding="@dimen/_23sdp"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_19ssp"
+                                app:favouritesDefinition="@{favouritesViewModel.randomDream}"
+                                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
-</ScrollView>
+        </RelativeLayout>
+    </ScrollView>
+</layout>

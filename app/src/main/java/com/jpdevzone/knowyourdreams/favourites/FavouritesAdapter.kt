@@ -1,65 +1,66 @@
 package com.jpdevzone.knowyourdreams.favourites
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.database.Dream
-import com.jpdevzone.knowyourdreams.R
+import com.jpdevzone.knowyourdreams.databinding.FavsItemDreamBinding
 
-class FavouritesAdapter (private val favourites: ArrayList<Dream>, private val listener: OnItemClickListener) : RecyclerView.Adapter<FavouritesAdapter.ViewHolder>() {
+class FavouritesAdapter (
+    private val clickListener: FavouritesClickListener,
+    private val setToFalseListener: SetToFalseListener
+    ): ListAdapter<Dream, FavouritesAdapter.ViewHolder>(DreamDiffCallback()) {
 
 
-    inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        var dream: TextView = itemView.findViewById(R.id.tv_item_favourites)
-        var definition: TextView = itemView.findViewById(R.id.tv_definition_favourites)
-        var icon: ImageButton = itemView.findViewById(R.id.delete_from_favourites)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item, clickListener, setToFalseListener)
+    }
 
-        init {
-            itemView.setOnClickListener(this)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
+
+    class ViewHolder private constructor (private val binding: FavsItemDreamBinding): RecyclerView.ViewHolder(binding.root) {
+
+        fun bind (
+            item: Dream,
+            clickListener: FavouritesClickListener,
+            setToFalseListener: SetToFalseListener
+        ) {
+            binding.dream = item
+            binding.clickListener = clickListener
+            binding.setToFalseListener = setToFalseListener
+            binding.executePendingBindings()
         }
 
-        override fun onClick(v: View?) {
-            val position: Int = absoluteAdapterPosition
-            val currentItem = favourites[position]
-            val item = favourites[position].dreamItem
-            val definition = favourites[position].dreamDefinition
-
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(item,definition,currentItem)
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = FavsItemDreamBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
             }
         }
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.favs_item_dream,viewGroup,false)
-        return ViewHolder(view)
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val currentItem = favourites[position]
-        viewHolder.dream.text = currentItem.dreamItem
-        viewHolder.definition.text = currentItem.dreamDefinition
-
-
-        if (position != RecyclerView.NO_POSITION) {
-            viewHolder.icon.setOnClickListener {
-                favourites.remove(currentItem)
-                notifyItemRemoved(position)
-                notifyDataSetChanged()
-            }
+    class DreamDiffCallback: DiffUtil.ItemCallback<Dream>() {
+        override fun areItemsTheSame(oldItem: Dream, newItem: Dream): Boolean {
+            return oldItem.id == newItem.id
         }
-    }
 
-    interface OnItemClickListener {
-        fun onItemClick(item: String, definition: String, currentItem: Dream)
-    }
+        override fun areContentsTheSame(oldItem: Dream, newItem: Dream): Boolean {
+            return oldItem.isChecked == newItem.isChecked
+        }
 
-    override fun getItemCount(): Int {
-        return favourites.size
     }
+}
+
+class FavouritesClickListener(val clickListener: (dreamId: Int) -> Unit) {
+    fun onClick(dream: Dream) = clickListener(dream.id)
+}
+
+class SetToFalseListener(val setToFalseListener: (dream: Dream) -> Unit) {
+    fun onClick(dream: Dream) = setToFalseListener(dream)
 }

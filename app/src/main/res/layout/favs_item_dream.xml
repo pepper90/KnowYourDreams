@@ -1,82 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <data>
+
+        <variable
+            name="dream"
+            type="com.jpdevzone.knowyourdreams.database.Dream" />
+
+        <variable
+            name="clickListener"
+            type="com.jpdevzone.knowyourdreams.favourites.FavouritesClickListener" />
+
+        <variable
+            name="setToFalseListener"
+            type="com.jpdevzone.knowyourdreams.favourites.SetToFalseListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_3sdp">
+        android:onClick="@{() -> clickListener.onClick(dream)}">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:baselineAligned="false"
-            tools:ignore="UselessParent">
+            android:padding="@dimen/_3sdp">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:orientation="vertical">
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
 
-                <TextView
-                    android:id="@+id/tv_item_favourites"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:fontFamily="@font/amaticsc_regular"
-                    android:gravity="center"
-                    android:textColor="@color/blue_500"
-                    android:textSize="@dimen/_24ssp"
-                    android:textStyle="bold"
-                    tools:text="Line 1" />
+                    android:layout_weight="0.8"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_definition_favourites"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:fontFamily="@font/oswald_light"
-                    android:maxLines="1"
-                    android:textColor="@color/blue_500"
-                    android:textSize="@dimen/_14ssp"
-                    tools:text="Definition"
-                    android:ellipsize="end"/>
+                    <TextView
+                        android:id="@+id/tv_item_favourites"
+                        favouritesItem="@{dream}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:fontFamily="@font/amaticsc_regular"
+                        android:gravity="center"
+                        android:textColor="@color/blue_500"
+                        android:textSize="@dimen/_24ssp"
+                        android:textStyle="bold"
+                        tools:text="Line 1" />
 
+                    <TextView
+                        android:id="@+id/tv_definition_favourites"
+                        favouritesDefinition="@{dream}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginLeft="@dimen/_12sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/oswald_light"
+                        android:maxLines="1"
+                        android:textColor="@color/blue_500"
+                        android:textSize="@dimen/_14ssp"
+                        tools:text="Definition" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/favouritesLinear2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_weight="0.2"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/delete_from_favourites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:scaleX="1.6"
+                        android:scaleY="1.6"
+                        app:srcCompat="@drawable/ic_delete"
+                        tools:ignore="ContentDescription"
+                        android:onClick="@{() -> setToFalseListener.onClick(dream)}"/>
+
+                </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/favouritesLinear2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:layout_marginRight="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_12sdp">
-
-                <ImageButton
-                    android:id="@+id/delete_from_favourites"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleX="1.6"
-                    android:scaleY="1.6"
-                    app:srcCompat="@drawable/ic_delete"
-                    android:background="@color/white"
-                    tools:ignore="ContentDescription" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-
-</androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

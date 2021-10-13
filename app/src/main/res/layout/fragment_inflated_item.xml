@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="InflatedItemViewModel"
+            name="dream"
+            type="com.jpdevzone.knowyourdreams.database.Dream" />
+
+        <variable
+            name="inflatedItemViewModel"
             type="com.jpdevzone.knowyourdreams.inflateditem.InflatedItemViewModel" />
     </data>
 
@@ -20,9 +25,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_inflated_dream"
             android:orientation="vertical"
-            tools:ignore="UselessParent"
             android:paddingTop="@dimen/_12sdp"
-            android:paddingBottom="@dimen/_12sdp">
+            android:paddingBottom="@dimen/_12sdp"
+            tools:ignore="UselessParent">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -31,31 +36,31 @@
                 android:layout_marginLeft="@dimen/_23sdp"
                 android:layout_marginEnd="@dimen/_23sdp"
                 android:layout_marginRight="@dimen/_23sdp"
+                app:cardBackgroundColor="@color/blue_700"
                 app:cardCornerRadius="@dimen/_20sdp"
                 app:strokeColor="@color/white"
-                app:strokeWidth="@dimen/_2sdp"
-                app:cardBackgroundColor="@color/blue_700">
+                app:strokeWidth="@dimen/_2sdp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_gravity="center">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/inflated_dream"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:fontFamily="@font/amaticsc_regular"
                         android:gravity="center"
                         android:padding="@dimen/_17sdp"
-                        android:layout_gravity="center_horizontal"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_35ssp"
                         android:textStyle="bold"
-                        tools:text="Lorem Ipsum"
-                        app:dreamItem="@{InflatedItemViewModel.dream}"/>
+                        app:dreamItem="@{inflatedItemViewModel.dream}"
+                        tools:text="Lorem Ipsum" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -67,31 +72,33 @@
                             android:id="@+id/btn_copy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/ic_copy"
                             android:background="@drawable/bg_button"
                             android:padding="@dimen/_12sdp"
+                            app:srcCompat="@drawable/ic_copy"
                             tools:ignore="ContentDescription" />
 
                         <ImageButton
                             android:id="@+id/btn_share"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/ic_share"
-                            android:layout_marginLeft="@dimen/_23sdp"
                             android:layout_marginStart="@dimen/_23sdp"
-                            android:layout_marginRight="@dimen/_23sdp"
+                            android:layout_marginLeft="@dimen/_23sdp"
                             android:layout_marginEnd="@dimen/_23sdp"
+                            android:layout_marginRight="@dimen/_23sdp"
                             android:background="@drawable/bg_button"
                             android:padding="@dimen/_12sdp"
+                            app:srcCompat="@drawable/ic_share"
                             tools:ignore="ContentDescription" />
 
-                        <ImageButton
+                        <CheckBox
                             android:id="@+id/btn_addtofavs"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/ic_inflated_star_outline"
-                            android:background="@drawable/bg_button"
-                            android:padding="@dimen/_12sdp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/inflated_selector_is_checked"
+                            android:button="@null"
+                            android:checked="@={inflatedItemViewModel.dream.checked}"
+                            android:onClick="@{() -> inflatedItemViewModel.updateChecked(inflatedItemViewModel.dream.id, inflatedItemViewModel.dream.checked)}"
                             tools:ignore="ContentDescription" />
                     </LinearLayout>
                 </LinearLayout>
@@ -101,9 +108,9 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/inflatedTop"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/inflatedTop"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@color/blue_700"
@@ -138,10 +145,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/oswald_light"
-                        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                         android:textColor="@color/blue_700"
                         android:textSize="@dimen/_19ssp"
-                        app:dreamDefinition="@{InflatedItemViewModel.dream}"/>
+                        app:dreamDefinition="@{inflatedItemViewModel.dream}"
+                        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
 
                 </LinearLayout>
             </LinearLayout>

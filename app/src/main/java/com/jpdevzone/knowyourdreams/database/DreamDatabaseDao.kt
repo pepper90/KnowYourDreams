@@ -2,7 +2,6 @@ package com.jpdevzone.knowyourdreams.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 
@@ -12,6 +11,9 @@ interface DreamDatabaseDao {
     @Update
     fun update(dream: Dream)
 
+    @Query("UPDATE dream_list_table SET isChecked = :status")
+    fun updateAllToFalse(status: Boolean)
+
     @Query("UPDATE dream_list_table SET isChecked = :status WHERE id = :key" )
     fun updateById(key: Int, status: Boolean)
 
@@ -19,7 +21,7 @@ interface DreamDatabaseDao {
     fun get(key: Int): LiveData<Dream>
 
     @Query("SELECT * from dream_list_table WHERE isChecked = :checked")
-    fun getOnlyChecked(checked: Boolean = true): LiveData<List<Dream>>
+    fun getOnlyChecked(checked: Boolean): LiveData<List<Dream>>
 
     @Query("SELECT * from dream_list_table ORDER BY id ASC")
     fun getAllDrams(): LiveData<List<Dream>>

@@ -31,18 +31,18 @@ class Dashboard : AppCompatActivity() {
 
         bottomNavigationView = binding.bottomNavigation
 
-        bottomNavigationView.setOnItemSelectedListener {
-            when(it.itemId){
-                R.id.searchFragment->setCurrentFragment(searchFragment)
-                R.id.favouritesFragment->setCurrentFragment(favouritesFragment)
-                R.id.historyFragment->setCurrentFragment(historyFragment)
-
-            }
-            true
-        }
-//        val navHostFragment = fragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
-//        val navController = navHostFragment.navController
-//        bottomNavigationView.setupWithNavController(navController)
+//        bottomNavigationView.setOnItemSelectedListener {
+//            when(it.itemId){
+//                R.id.searchFragment->setCurrentFragment(searchFragment)
+//                R.id.favouritesFragment->setCurrentFragment(favouritesFragment)
+//                R.id.historyFragment->setCurrentFragment(historyFragment)
+//
+//            }
+//            true
+//        }
+        val navHostFragment = fragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        val navController = navHostFragment.navController
+        bottomNavigationView.setupWithNavController(navController)
 
 //        fragmentManager.beginTransaction().apply {
 //            add(R.id.fragmentContainer, historyFragment, getString(R.string.myHistory)).hide(historyFragment)
@@ -52,12 +52,12 @@ class Dashboard : AppCompatActivity() {
 
 //        initListeners()
     }
-
-    private fun setCurrentFragment(fragment:Fragment)=
-        fragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentContainer,fragment)
-            commit()
-        }
+//
+//    private fun setCurrentFragment(fragment:Fragment)=
+//        fragmentManager.beginTransaction().apply {
+//            replace(R.id.fragmentContainer,fragment)
+//            commit()
+//        }
 
 //    private fun initListeners() {
 //        bottomNavigationView.setOnItemSelectedListener { menuItem ->

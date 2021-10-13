@@ -8,19 +8,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.jpdevzone.knowyourdreams.R
 import com.jpdevzone.knowyourdreams.database.DreamDatabase
 import com.jpdevzone.knowyourdreams.databinding.FragmentInflatedItemBinding
+import com.jpdevzone.knowyourdreams.stringBuilder
 import es.dmoral.toasty.Toasty
 
-class InflatedItemFragment: DialogFragment() {
+class InflatedItemFragment: Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,14 +41,10 @@ class InflatedItemFragment: DialogFragment() {
 
         binding.lifecycleOwner = this
 
-        val copy = binding.btnCopy
-        val share = binding.btnShare
-        val addToFavs = binding.btnAddtofavs
-
-        copy.setOnClickListener {
+        binding.btnCopy.setOnClickListener {
                 val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("dream",
-                    inflatedItemViewModel.stringBuilder(
+                    stringBuilder(
                         binding.inflatedDream.text.toString(),
                         binding.inflatedDefinition.text.toString()
                     )
@@ -58,12 +53,12 @@ class InflatedItemFragment: DialogFragment() {
                 Toasty.custom(requireContext(), R.string.copied, R.drawable.ic_copy, R.color.blue_700, Toast.LENGTH_SHORT, true, true).show()
             }
 
-        share.setOnClickListener {
+        binding.btnShare.setOnClickListener {
                 val shareIntent = Intent().apply {
                     this.action = Intent.ACTION_SEND
                     this.putExtra(
                         Intent.EXTRA_TEXT,
-                        inflatedItemViewModel.stringBuilder(
+                        stringBuilder(
                             binding.inflatedDream.text.toString(),
                             binding.inflatedDefinition.text.toString()
                         )
@@ -73,33 +68,22 @@ class InflatedItemFragment: DialogFragment() {
                 startActivity(shareIntent)
             }
 
-        addToFavs.setOnClickListener {
-            addToFavs.setImageResource(R.drawable.ic_inflated_star_full)
-        }
-
-        inflatedItemViewModel.navigateBack.observe(viewLifecycleOwner, {
+        inflatedItemViewModel.navigateToSearchFragment.observe(viewLifecycleOwner, {
             if (it == true) {
                 this.findNavController().navigate(
                     InflatedItemFragmentDirections.actionInflatedItemFragmentToSearchFragment())
-                inflatedItemViewModel.doneNavigating()
+                inflatedItemViewModel.doneNavigatingToSearchFragment()
+            }
+        })
+
+        inflatedItemViewModel.navigateToFavouritesFragment.observe(viewLifecycleOwner, {
+            if (it == true) {
+                this.findNavController().navigate(
+                    InflatedItemFragmentDirections.actionInflatedItemFragmentToFavouritesFragment())
+                inflatedItemViewModel.doneNavigatingToFavouritesFragment()
             }
         })
 
         return binding.root
     }
-
-//        addToFavs = binding.btnAddtofavs
-
-//
-//
-////            addToFavs.setOnClickListener {
-////                if (Constants.favourites.contains(inflated)) {
-////                    Toasty.custom(requireActivity(), R.string.alreadyAdded, R.drawable.ic_attention,R.color.blue_700,Toast.LENGTH_SHORT,true, true).show()
-////                } else {
-////                    Constants.favourites.add(inflated)
-////                    Toasty.custom(requireActivity(), R.string.addedToFavs, R.drawable.ic_star_full, R.color.blue_700, Toast.LENGTH_SHORT, true, true).show()
-////                }
-////            }
-//        }
-//    }
 }

@@ -3,7 +3,7 @@
 
     <data>
         <variable
-            name="SearchViewModel"
+            name="searchViewModel"
             type="com.jpdevzone.knowyourdreams.search.SearchViewModel" />
     </data>
 

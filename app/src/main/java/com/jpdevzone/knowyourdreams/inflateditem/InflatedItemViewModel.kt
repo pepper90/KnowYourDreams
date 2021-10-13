@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jpdevzone.knowyourdreams.database.Dream
 import com.jpdevzone.knowyourdreams.database.DreamDatabaseDao
+import kotlinx.coroutines.*
 
 class InflatedItemViewModel(dreamId: Int, dataSource: DreamDatabaseDao) : ViewModel() {
     val database = dataSource
@@ -18,20 +19,42 @@ class InflatedItemViewModel(dreamId: Int, dataSource: DreamDatabaseDao) : ViewMo
         dream.addSource(database.get(dreamId), dream::setValue)
     }
 
-    private val _navigateBack = MutableLiveData<Boolean?>()
-    val navigateBack: LiveData<Boolean?>
-        get() = _navigateBack
+    private val _navigateToSearchFragment = MutableLiveData<Boolean?>()
+    val navigateToSearchFragment: LiveData<Boolean?>
+        get() = _navigateToSearchFragment
 
-    fun doneNavigating() {
-        _navigateBack.value = null
+    fun doneNavigatingToSearchFragment() {
+        _navigateToSearchFragment.value = null
     }
 
-    fun stringBuilder(dreamItem: String, dreamDefinition: String) : CharSequence {
-        val data = StringBuilder()
-        data.append(dreamItem)
-        data.append(": ")
-        data.append(dreamDefinition)
-        data.append("\n\nКопирано от СъновникБГ - тълкуване на сънища / Google Play: https://play.google.com/store/apps/details?id=com.jpdevzone.knowyourdreams")
-        return data
+
+
+    private val _navigateToFavouritesFragment = MutableLiveData<Boolean?>()
+    val navigateToFavouritesFragment: LiveData<Boolean?>
+        get() = _navigateToFavouritesFragment
+
+    fun doneNavigatingToFavouritesFragment() {
+        _navigateToFavouritesFragment.value = null
+    }
+
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    fun updateChecked(id: Int, status: Boolean) {
+        uiScope.launch {
+            update(id, status)
+            println(database.get(id))
+        }
+    }
+
+    private suspend fun update(id: Int, status: Boolean) {
+        withContext(Dispatchers.IO) {
+            database.updateById(id, status)
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }

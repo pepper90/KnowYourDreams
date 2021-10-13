@@ -64,7 +64,8 @@ class SearchFragment : Fragment() {
             dreamId?.let {  navigate(SearchFragmentDirections
                 .actionSearchFragmentToInflatedItemFragment(dreamId))
                 searchViewModel.onDreamNavigated()
-            }})
+            }
+        })
 
         //ALPHABET________________________________________________________________
 
