@@ -157,7 +157,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_marginTop="-2dp"
                         android:fontFamily="@font/amaticsc_bold"
                         android:gravity="center_horizontal"
                         android:padding="@dimen/_5sdp"

@@ -1,7 +1,6 @@
 package com.jpdevzone.knowyourdreams.search
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +16,6 @@ class SearchViewModel(
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
-        Log.i("SearchViewModel", "SearchViewModel destroyed!")
     }
 
     fun alphabet(): List<Letter> {
@@ -42,8 +40,7 @@ class SearchViewModel(
 
     private suspend fun update(dream: Dream) {
         withContext(Dispatchers.IO) {
-        database.update(dream)
-        println(dream.isChecked)
+            database.updateChecked(dream.id, dream.isChecked, System.currentTimeMillis())
         }
     }
 
@@ -63,6 +60,18 @@ class SearchViewModel(
 
     fun onDreamNavigated() {
         _navigateToDreamData.value = null
+    }
+
+    fun addToHistory(id: Int) {
+        uiScope.launch {
+            updateInHistory(id)
+        }
+    }
+
+    private suspend fun updateInHistory(id: Int) {
+        withContext(Dispatchers.IO) {
+            database.updateHistoryById(id, true, System.currentTimeMillis())
+        }
     }
 
     fun map(letter: String): Int {

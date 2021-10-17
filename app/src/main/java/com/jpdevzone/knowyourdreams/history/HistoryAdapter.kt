@@ -1,54 +1,64 @@
 package com.jpdevzone.knowyourdreams.history
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jpdevzone.knowyourdreams.database.Dream
-import com.jpdevzone.knowyourdreams.R
+import com.jpdevzone.knowyourdreams.databinding.HistoryItemDreamBinding
 
-class HistoryAdapter (private val history: ArrayList<Dream>, private val listener: OnItemClickListener) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+class HistoryAdapter (val clickListener: HistoryClickListener, val deleteFromHistoyListener: DeleteFromHistoryListener) : ListAdapter<Dream, HistoryAdapter.ViewHolder>(DreamDiffCallback()) {
 
-    inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        var dream: TextView = itemView.findViewById(R.id.tv_item_history)
-        var definition: TextView = itemView.findViewById(R.id.tv_definition_history)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item, clickListener, deleteFromHistoyListener)
+    }
 
-        init {
-            itemView.setOnClickListener(this)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
+
+    class ViewHolder private constructor(private val binding: HistoryItemDreamBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(
+            item: Dream,
+            clickListener: HistoryClickListener,
+            deleteFromHistoyListener: DeleteFromHistoryListener
+        ) {
+            binding.dream = item
+            binding.clickListener = clickListener
+            binding.deleteFromHistoyListener = deleteFromHistoyListener
+            binding.executePendingBindings()
         }
 
-        override fun onClick(v: View?) {
-            val position: Int = absoluteAdapterPosition
-            val item = history[position].dreamItem
-            val definition = history[position].dreamDefinition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(item,definition)
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = HistoryItemDreamBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
             }
         }
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.history_item_dream,viewGroup,false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val currentItem = history[position]
-        viewHolder.dream.text = currentItem.dreamItem
-        viewHolder.definition.text = currentItem.dreamDefinition
-    }
-
-    interface OnItemClickListener {
-        fun onItemClick(item: String, definition: String)
-    }
-
-    override fun getItemCount(): Int {
-        val limit = 5
-        return if (history.size > limit) {
-            limit
-        }else {
-            history.size
+    class DreamDiffCallback : DiffUtil.ItemCallback<Dream>() {
+        override fun areItemsTheSame(oldItem: Dream, newItem: Dream): Boolean {
+            return oldItem.id == newItem.id
         }
+
+        override fun areContentsTheSame(oldItem: Dream, newItem: Dream): Boolean {
+            return oldItem.isChecked == newItem.isChecked
+        }
+
     }
 }
+
+class HistoryClickListener(val clickListener: (dreamId: Int) -> Unit) {
+    fun onClick(dream: Dream) = clickListener(dream.id)
+}
+
+class DeleteFromHistoryListener(val deleteFromHistoyListener: (dream: Dream) -> Unit) {
+    fun onClick(dream: Dream) = deleteFromHistoyListener(dream)
+}
+

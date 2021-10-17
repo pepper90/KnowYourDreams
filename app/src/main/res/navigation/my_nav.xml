@@ -19,7 +19,11 @@
         android:id="@+id/historyFragment"
         android:name="com.jpdevzone.knowyourdreams.history.HistoryFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_inflatedItemFragment"
+            app:destination="@id/inflatedItemFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/favouritesFragment"
@@ -45,6 +49,9 @@
         <argument
             android:name="dreamId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_inflatedItemFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
 
 </navigation>

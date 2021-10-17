@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
+        <variable
+            name="historyViewModel"
+            type="com.jpdevzone.knowyourdreams.history.HistoryViewModel" />
     </data>
 
     <ScrollView
@@ -116,6 +120,8 @@
                             android:layout_gravity="center"
                             android:layout_weight="0.1"
                             android:background="@color/white"
+                            android:onClick="@{() -> historyViewModel.deleteAll()}"
+                            android:visibility="@{historyViewModel.historyIsNotEmpty ? View.VISIBLE : View.GONE}"
                             android:scaleX="1.6"
                             android:scaleY="1.6"
                             app:srcCompat="@drawable/ic_delete"
@@ -142,26 +148,35 @@
                 app:strokeColor="@color/teal_200"
                 app:strokeWidth="@dimen/_2sdp">
 
-                <TextView
-                    android:id="@+id/tv_emptyHistory"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/amaticsc_bold"
-                    android:gravity="center_horizontal"
-                    android:padding="@dimen/_5sdp"
-                    android:text="@string/empty"
-                    android:textAlignment="center"
-                    android:textColor="@color/blue_700"
-                    android:textSize="@dimen/_19ssp"
-                    android:visibility="gone" />
+                    android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/historyRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:overScrollMode="never"
-                    android:scrollbars="none"
-                    tools:listitem="@layout/history_item_dream" />
+                    <TextView
+                        android:id="@+id/tv_emptyHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:fontFamily="@font/amaticsc_bold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/empty"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue_700"
+                        android:textSize="@dimen/_19ssp"
+                        android:visibility="@{historyViewModel.historyIsNotEmpty ? View.GONE : View.VISIBLE}"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/historyRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_emptyHistory"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </RelativeLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -265,6 +280,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_31ssp"
                                 android:textStyle="bold"
+                                historyItem="@{historyViewModel.randomDream}"
                                 tools:text="Lorem Ipsum" />
 
                             <LinearLayout
@@ -294,13 +310,15 @@
                                     app:srcCompat="@drawable/ic_share"
                                     tools:ignore="ContentDescription" />
 
-                                <ImageButton
+                                <CheckBox
                                     android:id="@+id/btn_addtofavs"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_button"
-                                    android:padding="@dimen/_12sdp"
-                                    app:srcCompat="@drawable/ic_inflated_star_full"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/inflated_selector_is_checked"
+                                    android:button="@null"
+                                    android:checked="@={historyViewModel.randomDream.checked}"
+                                    android:onClick="@{() -> historyViewModel.updateRandomDream(historyViewModel.randomDream.id, historyViewModel.randomDream.checked)}"
                                     tools:ignore="ContentDescription" />
 
                             </LinearLayout>
@@ -314,6 +332,7 @@
                                 android:gravity="center"
                                 android:padding="@dimen/_23sdp"
                                 android:textColor="@color/white"
+                                historyDefinition="@{historyViewModel.randomDream}"
                                 android:textSize="@dimen/_19ssp"
                                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
 

@@ -1,62 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <data>
+        <variable
+            name="dream"
+            type="com.jpdevzone.knowyourdreams.database.Dream" />
+
+        <variable
+            name="clickListener"
+            type="com.jpdevzone.knowyourdreams.history.HistoryClickListener" />
+
+        <variable
+            name="deleteFromHistoyListener"
+            type="com.jpdevzone.knowyourdreams.history.DeleteFromHistoryListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_3sdp">
+        android:onClick="@{() -> clickListener.onClick(dream)}">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:baselineAligned="false"
-            tools:ignore="UselessParent">
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/_3sdp">
 
-            <LinearLayout
-                android:id="@+id/hisotryLinear"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_item_history"
+                historyItem="@{dream}"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_toStartOf="@+id/delete_from_history"
+                android:layout_toLeftOf="@+id/delete_from_history"
+                android:fontFamily="@font/amaticsc_regular"
+                android:textColor="@color/blue_500"
+                android:textSize="@dimen/_24ssp"
+                android:textStyle="bold"
+                tools:text="Line 1" />
 
-                <TextView
-                    android:id="@+id/tv_item_history"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:fontFamily="@font/amaticsc_regular"
-                    android:gravity="center"
-                    android:textColor="@color/blue_500"
-                    android:textSize="@dimen/_24ssp"
-                    android:textStyle="bold"
-                    tools:text="Line 1" />
+            <TextView
+                android:id="@+id/tv_definition_history"
+                historyDefinition="@{dream}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_item_history"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_toStartOf="@+id/delete_from_history"
+                android:layout_toLeftOf="@+id/delete_from_history"
+                android:ellipsize="end"
+                android:fontFamily="@font/oswald_light"
+                android:maxLines="1"
+                android:textColor="@color/blue_500"
+                android:textSize="@dimen/_14ssp"
+                tools:text="Definition" />
 
-                <TextView
-                    android:id="@+id/tv_definition_history"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_12sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
-                    android:fontFamily="@font/oswald_light"
-                    android:maxLines="1"
-                    android:textColor="@color/blue_500"
-                    android:textSize="@dimen/_14ssp"
-                    tools:text="Definition"
-                    android:ellipsize="end"/>
+            <ImageButton
+                android:id="@+id/delete_from_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:background="@color/white"
+                android:scaleX="1.6"
+                android:scaleY="1.6"
+                app:srcCompat="@drawable/ic_delete"
+                android:onClick="@{() -> deleteFromHistoyListener.onClick(dream)}"/>
 
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-
-</androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

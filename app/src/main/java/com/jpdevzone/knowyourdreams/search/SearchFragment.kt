@@ -50,8 +50,6 @@ class SearchFragment : Fragment() {
             },
             DreamCheckListener { dream ->
                 searchViewModel.updateChecked(dream)
-                println(dream.isChecked)
-                println(dream.id)
             })
         searchRecyclerView.adapter = searchAdapter
         searchRecyclerView.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
@@ -64,6 +62,7 @@ class SearchFragment : Fragment() {
             dreamId?.let {  navigate(SearchFragmentDirections
                 .actionSearchFragmentToInflatedItemFragment(dreamId))
                 searchViewModel.onDreamNavigated()
+                searchViewModel.addToHistory(dreamId)
             }
         })
 

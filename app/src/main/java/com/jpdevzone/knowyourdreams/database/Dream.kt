@@ -1,6 +1,5 @@
 package com.jpdevzone.knowyourdreams.database
 
-import android.os.Parcelable
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
@@ -21,7 +20,16 @@ data class Dream(
     var dreamDefinition: String,
 
     @ColumnInfo
-    var isChecked: Boolean
+    var isChecked: Boolean,
+
+    @ColumnInfo
+    var inHistory: Boolean,
+
+    @ColumnInfo
+    var modifiedAt: Long?,
+
+    @ColumnInfo
+    var visitedAt: Long?
 ) : BaseObservable() {
     @Ignore
     @Bindable

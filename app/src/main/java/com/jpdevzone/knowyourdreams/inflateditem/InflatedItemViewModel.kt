@@ -28,7 +28,6 @@ class InflatedItemViewModel(dreamId: Int, dataSource: DreamDatabaseDao) : ViewMo
     }
 
 
-
     private val _navigateToFavouritesFragment = MutableLiveData<Boolean?>()
     val navigateToFavouritesFragment: LiveData<Boolean?>
         get() = _navigateToFavouritesFragment
@@ -37,19 +36,26 @@ class InflatedItemViewModel(dreamId: Int, dataSource: DreamDatabaseDao) : ViewMo
         _navigateToFavouritesFragment.value = null
     }
 
+    private val _navigateToHistoryFragment = MutableLiveData<Boolean?>()
+    val navigateToHistoryFragment: LiveData<Boolean?>
+        get() = _navigateToHistoryFragment
+
+    fun doneNavigatingToHistoryFragment() {
+        _navigateToHistoryFragment.value = null
+    }
+
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     fun updateChecked(id: Int, status: Boolean) {
         uiScope.launch {
             update(id, status)
-            println(database.get(id))
         }
     }
 
     private suspend fun update(id: Int, status: Boolean) {
         withContext(Dispatchers.IO) {
-            database.updateById(id, status)
+            database.updateFavouritesById(id, status, System.currentTimeMillis())
         }
     }
 

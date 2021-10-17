@@ -1,13 +1,13 @@
-package com.jpdevzone.knowyourdreams.favourites
+package com.jpdevzone.knowyourdreams.history
 
 import android.app.Application
 import androidx.lifecycle.*
 import com.jpdevzone.knowyourdreams.database.Dream
 import com.jpdevzone.knowyourdreams.database.DreamDatabaseDao
-import com.jpdevzone.knowyourdreams.randomInt
+import com.jpdevzone.knowyourdreams.randomInt2
 import kotlinx.coroutines.*
 
-class FavouritesViewModel(
+class HistoryViewModel(
     val database: DreamDatabaseDao,
     application: Application
 ) : AndroidViewModel(application) {
@@ -17,25 +17,25 @@ class FavouritesViewModel(
         viewModelJob.cancel()
     }
 
-    val favourites = database.getFavourites(true)
+    val history = database.getHistory(true)
 
-    private val _navigateToFavouritesData = MutableLiveData<Int?>()
-    val navigateToFavouritesData: LiveData<Int?>
-        get() = _navigateToFavouritesData
+    private val _navigateToHistoryData = MutableLiveData<Int?>()
+    val navigateToHistoryData: LiveData<Int?>
+        get() = _navigateToHistoryData
 
     fun onDreamClicked(id: Int) {
-        _navigateToFavouritesData.value = id
+        _navigateToHistoryData.value = id
     }
 
     fun onDreamNavigated() {
-        _navigateToFavouritesData.value = null
+        _navigateToHistoryData.value = null
     }
 
     private var viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun updateChecked(dream: Dream) {
+    fun deleteFromHistory(dream: Dream) {
         uiScope.launch {
             update(dream)
         }
@@ -43,7 +43,7 @@ class FavouritesViewModel(
 
     private suspend fun update(dream: Dream) {
         withContext(Dispatchers.IO) {
-            database.update(dream)
+            database.updateHistoryById(dream.id, false, System.currentTimeMillis())
         }
     }
 
@@ -55,11 +55,11 @@ class FavouritesViewModel(
 
     private suspend fun updateAllToFalse() {
         withContext(Dispatchers.IO) {
-            database.updateAllFavouritesToFalse(false)
+            database.updateAllHistoryToFalse(false)
         }
     }
 
-    val favouritesIsNotEmpty = Transformations.map(favourites) {
+    val historyIsNotEmpty = Transformations.map(history) {
         it.isNotEmpty()
     }
 
@@ -68,7 +68,7 @@ class FavouritesViewModel(
     fun getRandomDream() = randomDream
 
     init {
-        randomDream.addSource(database.get(randomInt), randomDream::setValue)
+        randomDream.addSource(database.get(randomInt2), randomDream::setValue)
     }
 
     fun updateRandomDream(id: Int, status: Boolean) {
@@ -83,15 +83,15 @@ class FavouritesViewModel(
         }
     }
 
-    fun addToHistory(id: Int) {
+    fun updateTimestampVisited(id: Int) {
         uiScope.launch {
-            updateInHistory(id)
+            updateTimestamp(id)
         }
     }
 
-    private suspend fun updateInHistory(id: Int) {
+    private suspend fun updateTimestamp(id: Int) {
         withContext(Dispatchers.IO) {
-            database.updateHistoryById(id, true, System.currentTimeMillis())
+            database.updateVisitedAt(id, System.currentTimeMillis())
         }
     }
 }

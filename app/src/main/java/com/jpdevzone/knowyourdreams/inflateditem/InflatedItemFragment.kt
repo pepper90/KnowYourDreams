@@ -84,6 +84,14 @@ class InflatedItemFragment: Fragment() {
             }
         })
 
+        inflatedItemViewModel.navigateToHistoryFragment.observe(viewLifecycleOwner, {
+            if (it == true) {
+                this.findNavController().navigate(
+                    InflatedItemFragmentDirections.actionInflatedItemFragmentToHistoryFragment())
+                inflatedItemViewModel.doneNavigatingToHistoryFragment()
+            }
+        })
+
         return binding.root
     }
 }

@@ -10,13 +10,13 @@ import com.jpdevzone.knowyourdreams.databinding.FavsItemDreamBinding
 
 class FavouritesAdapter (
     private val clickListener: FavouritesClickListener,
-    private val setToFalseListener: SetToFalseListener
+    private val checkListener: DreamCheckListener
     ): ListAdapter<Dream, FavouritesAdapter.ViewHolder>(DreamDiffCallback()) {
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, clickListener, setToFalseListener)
+        holder.bind(item, clickListener, checkListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,11 +28,11 @@ class FavouritesAdapter (
         fun bind (
             item: Dream,
             clickListener: FavouritesClickListener,
-            setToFalseListener: SetToFalseListener
+            checkListener: DreamCheckListener
         ) {
             binding.dream = item
             binding.clickListener = clickListener
-            binding.setToFalseListener = setToFalseListener
+            binding.checkListener = checkListener
             binding.executePendingBindings()
         }
 
@@ -61,6 +61,6 @@ class FavouritesClickListener(val clickListener: (dreamId: Int) -> Unit) {
     fun onClick(dream: Dream) = clickListener(dream.id)
 }
 
-class SetToFalseListener(val setToFalseListener: (dream: Dream) -> Unit) {
-    fun onClick(dream: Dream) = setToFalseListener(dream)
+class DreamCheckListener(val checkListener: (dream: Dream) -> Unit) {
+    fun onCheck(dream: Dream) = checkListener(dream)
 }
