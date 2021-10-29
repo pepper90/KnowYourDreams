@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.databinding.DataBindingUtil
 import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jpdevzone.knowyourdreams.R
 import com.jpdevzone.knowyourdreams.database.DreamDatabase
 import com.jpdevzone.knowyourdreams.databinding.FragmentSearchBinding
+import es.dmoral.toasty.Toasty
 
 class SearchFragment : Fragment() {
 //    private var mInterstitialAd: InterstitialAd? = null
@@ -95,8 +98,40 @@ class SearchFragment : Fragment() {
             }
         })
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    when (searchView.isIconified) {
+                        false -> {
+                            searchView.isIconified = true
+                            searchView.isIconified = true
+                            searchView.clearFocus()
+                        }
+                        else -> {
+                            if (isEnabled) {
+                                Toasty.custom(
+                                    context!!,
+                                    R.string.toast,
+                                    R.drawable.ic_exit,
+                                    R.color.blue_700,
+                                    Toast.LENGTH_LONG,
+                                    true,
+                                    true
+                                ).show()
+                                isEnabled = false
+                            } else {
+                                requireActivity().onBackPressed()
+                            }
+                        }
+                    }
+                }
+            }
+            )
+
         return binding.root
     }
+
 
     private fun navigate(destination: NavDirections) = with(findNavController()) {
         currentDestination?.getAction(destination.actionId)
@@ -119,9 +154,6 @@ class SearchFragment : Fragment() {
         }
         searchView.imeOptions = EditorInfo.IME_ACTION_DONE
     }
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
 
 
 

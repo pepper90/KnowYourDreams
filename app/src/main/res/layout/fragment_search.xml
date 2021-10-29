@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -7,29 +9,26 @@
             type="com.jpdevzone.knowyourdreams.search.SearchViewModel" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/blue_700"
         tools:context=".search.SearchFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:background="@color/blue_700"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:contentInsetEnd="0dp"
             app:contentInsetLeft="0dp"
             app:contentInsetRight="0dp"
-            app:contentInsetStart="0dp">
+            app:contentInsetStart="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +44,7 @@
                     android:text="@string/knowyourdreams"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_31ssp"/>
+                    android:textSize="@dimen/_31ssp" />
 
                 <SearchView
                     android:id="@+id/searchView"
@@ -66,78 +65,45 @@
                     app:queryBackground="@android:color/transparent"
                     app:searchHintIcon="@drawable/ic_search"
                     app:searchIcon="@drawable/ic_search"
-                    tools:ignore="UnusedAttribute"/>
+                    tools:ignore="UnusedAttribute" />
 
             </LinearLayout>
-
         </androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/searchLinear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_below="@id/toolbar"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="@color/blue_700"
-            android:orientation="vertical">
+            android:background="@drawable/bg_linear"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/alphabetRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_linear"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:paddingHorizontal="@dimen/_17sdp"
+                android:paddingVertical="@dimen/_5sdp"
+                android:scrollbars="none"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_letter" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_17sdp"
-                    android:layout_marginLeft="@dimen/_17sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_17sdp"
-                    android:layout_marginRight="@dimen/_17sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:orientation="horizontal"
-                    tools:ignore="UselessParent">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/alphabetRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:overScrollMode="never"
-                        android:scrollbars="none"
-                        tools:listitem="@layout/item_letter"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:orientation="horizontal"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/searchCardView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_below="@id/searchLinear"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/searchRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
+                android:layout_below="@id/alphabetRecyclerView"
                 android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                android:scrollbars="none"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-        </androidx.cardview.widget.CardView>
-
-    </RelativeLayout>
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

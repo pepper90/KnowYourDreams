@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="dream"
             type="com.jpdevzone.knowyourdreams.database.Dream" />
@@ -14,7 +13,7 @@
             type="com.jpdevzone.knowyourdreams.inflateditem.InflatedItemViewModel" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
@@ -25,17 +24,15 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_inflated_dream"
             android:orientation="vertical"
-            android:paddingTop="@dimen/_12sdp"
-            android:paddingBottom="@dimen/_12sdp"
-            tools:ignore="UselessParent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_23sdp"
-                android:layout_marginLeft="@dimen/_23sdp"
-                android:layout_marginEnd="@dimen/_23sdp"
-                android:layout_marginRight="@dimen/_23sdp"
+                android:layout_marginHorizontal="@dimen/_23sdp"
+                android:layout_marginVertical="@dimen/_12sdp"
                 app:cardBackgroundColor="@color/blue_700"
                 app:cardCornerRadius="@dimen/_20sdp"
                 app:strokeColor="@color/white"
@@ -81,10 +78,7 @@
                             android:id="@+id/btn_share"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_23sdp"
-                            android:layout_marginLeft="@dimen/_23sdp"
-                            android:layout_marginEnd="@dimen/_23sdp"
-                            android:layout_marginRight="@dimen/_23sdp"
+                            android:layout_marginHorizontal="@dimen/_23sdp"
                             android:background="@drawable/bg_button"
                             android:padding="@dimen/_12sdp"
                             app:srcCompat="@drawable/ic_share"
@@ -106,32 +100,22 @@
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/inflatedTop"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:background="@color/blue_700"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inflatedTop">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_linear3"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_17sdp"
                 android:paddingBottom="@dimen/_12sdp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_17sdp"
-                    android:layout_marginLeft="@dimen/_17sdp"
-                    android:layout_marginEnd="@dimen/_17sdp"
-                    android:layout_marginRight="@dimen/_17sdp"
-                    android:orientation="horizontal"
-                    tools:ignore="UseCompoundDrawables,UselessParent">
 
                     <View
                         android:layout_width="@dimen/_2sdp"
@@ -150,9 +134,7 @@
                         app:dreamDefinition="@{inflatedItemViewModel.dream}"
                         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
 
-                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
