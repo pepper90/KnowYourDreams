@@ -1,7 +1,9 @@
 package com.jpdevzone.knowyourdreams.search
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +36,8 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        loadData()
 
         //Architecture components________________________________________________
 
@@ -82,9 +86,10 @@ class SearchFragment : Fragment() {
                             .actionSearchFragmentToInflatedItemFragment(dreamId))
                         searchViewModel.onDreamNavigated()
                         searchViewModel.addToHistory(dreamId)
+                        saveData()
                     }
                 }
-                println(clickCounter)
+                Log.i("INFO", "$clickCounter")
             }
         })
 
@@ -134,12 +139,13 @@ class SearchFragment : Fragment() {
                                     R.string.toast,
                                     R.drawable.ic_exit,
                                     R.color.blue_700,
-                                    Toast.LENGTH_LONG,
+                                    Toast.LENGTH_SHORT,
                                     true,
                                     true
                                 ).show()
                                 isEnabled = false
                             } else {
+                                saveData()
                                 requireActivity().onBackPressed()
                             }
                         }
@@ -182,22 +188,26 @@ class SearchFragment : Fragment() {
             mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
                     navigate(destination)
+                    saveData()
                     mInterstitialAd = null
                     loadAd()
                 }
 
                 override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
                     navigate(destination)
+                    saveData()
                     mInterstitialAd = null
                 }
 
                 override fun onAdShowedFullScreenContent() {
                     navigate(destination)
+                    saveData()
                 }
             }
             mInterstitialAd?.show(requireContext() as Activity)
         } else {
             navigate(destination)
+            saveData()
         }
     }
 
@@ -216,5 +226,17 @@ class SearchFragment : Fragment() {
                 mInterstitialAd = interstitialAd
             }
         })
+    }
+
+    private fun saveData() {
+        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putInt("clickCounter", clickCounter)
+            apply()
+        }
+    }
+    private fun loadData() {
+        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return
+        clickCounter = sharedPref.getInt("clickCounter", 0)
     }
 }

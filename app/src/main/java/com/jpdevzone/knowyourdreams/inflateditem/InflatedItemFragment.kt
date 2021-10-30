@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.jpdevzone.knowyourdreams.R
 import com.jpdevzone.knowyourdreams.database.DreamDatabase
 import com.jpdevzone.knowyourdreams.databinding.FragmentInflatedItemBinding
@@ -92,6 +94,22 @@ class InflatedItemFragment: Fragment() {
             }
         })
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            inAppReview()
+        }
+
         return binding.root
+    }
+
+    private fun inAppReview() {
+        val reviewManager = ReviewManagerFactory.create(requireContext())
+        val requestReviewFlow = reviewManager.requestReviewFlow()
+        requestReviewFlow.addOnCompleteListener { request ->
+            if (request.isSuccessful) {
+                val reviewInfo = request.result
+                val flow = reviewManager.launchReviewFlow(requireActivity(), reviewInfo)
+                flow.addOnCompleteListener {}
+            }
+        }
     }
 }
