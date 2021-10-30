@@ -1,5 +1,6 @@
 package com.jpdevzone.knowyourdreams.search
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,13 +18,17 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.jpdevzone.knowyourdreams.R
 import com.jpdevzone.knowyourdreams.database.DreamDatabase
 import com.jpdevzone.knowyourdreams.databinding.FragmentSearchBinding
 import es.dmoral.toasty.Toasty
 
 class SearchFragment : Fragment() {
-//    private var mInterstitialAd: InterstitialAd? = null
+    private var mInterstitialAd: InterstitialAd? = null
+    private var clickCounter = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,10 +67,24 @@ class SearchFragment : Fragment() {
         })
 
         searchViewModel.navigateToDreamData.observe(viewLifecycleOwner, {dreamId ->
-            dreamId?.let {  navigate(SearchFragmentDirections
-                .actionSearchFragmentToInflatedItemFragment(dreamId))
-                searchViewModel.onDreamNavigated()
-                searchViewModel.addToHistory(dreamId)
+            dreamId?.let {
+                clickCounter++
+                when (clickCounter % 5 == 0) {
+                    true -> {
+                        showAd(SearchFragmentDirections
+                            .actionSearchFragmentToInflatedItemFragment(dreamId))
+                        searchViewModel.onDreamNavigated()
+                        searchViewModel.addToHistory(dreamId)
+                    }
+
+                    false -> {
+                        navigate(SearchFragmentDirections
+                            .actionSearchFragmentToInflatedItemFragment(dreamId))
+                        searchViewModel.onDreamNavigated()
+                        searchViewModel.addToHistory(dreamId)
+                    }
+                }
+                println(clickCounter)
             }
         })
 
@@ -129,6 +148,9 @@ class SearchFragment : Fragment() {
             }
             )
 
+        MobileAds.initialize(requireContext()) {}
+        loadAd()
+
         return binding.root
     }
 
@@ -155,75 +177,44 @@ class SearchFragment : Fragment() {
         searchView.imeOptions = EditorInfo.IME_ACTION_DONE
     }
 
+    private fun showAd(destination: NavDirections) {
+        if (mInterstitialAd != null) {
+            mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    navigate(destination)
+                    mInterstitialAd = null
+                    loadAd()
+                }
 
+                override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                    navigate(destination)
+                    mInterstitialAd = null
+                }
 
-//        MobileAds.initialize(requireContext()) {}
-//        createPersonalizedAdd()
-//    }
+                override fun onAdShowedFullScreenContent() {
+                    navigate(destination)
+                }
+            }
+            mInterstitialAd?.show(requireContext() as Activity)
+        } else {
+            navigate(destination)
+        }
+    }
 
+    private fun loadAd() {
+        val adRequest = AdRequest.Builder().build()
+        createInterstitialAd(adRequest)
+    }
 
-//    override fun onItemClick(item: String, definition: String, currentItem: Dream) {
-//        Constants.adCounter++
-//        when (Constants.adCounter % 5 == 0) {
-//            true -> {
-//                if (mInterstitialAd != null) {
-//                    mInterstitialAd?.show(requireActivity())
-//                    Constants.history.add(currentItem)
-//                    val args = Bundle()
-//                    args.putString("Item", item)
-//                    args.putString("Definition", definition)
-//
-//                    val inflatedFragment = InflatedItemFragment()
-//                    inflatedFragment.arguments = args
-//                    val fm = requireActivity().supportFragmentManager
-//
-//                    inflatedFragment.show(fm, "inflatedItem")
-//                    createPersonalizedAdd()
-//                } else {
-//                    Constants.history.add(currentItem)
-//                    val args = Bundle()
-//                    args.putString("Item", item)
-//                    args.putString("Definition", definition)
-//
-//                    val inflatedFragment = InflatedItemFragment()
-//                    inflatedFragment.arguments = args
-//                    val fm = requireActivity().supportFragmentManager
-//
-//                    inflatedFragment.show(fm, "inflatedItem")
-//                    createPersonalizedAdd()
-//                }
-//            }
-//
-//            false -> {
-//                Constants.history.add(currentItem)
-//                val args = Bundle()
-//                args.putString("Item", item)
-//                args.putString("Definition", definition)
-//
-//                val inflatedFragment = InflatedItemFragment()
-//                inflatedFragment.arguments = args
-//                val fm = requireActivity().supportFragmentManager
-//
-//                inflatedFragment.show(fm, "inflatedItem")
-//            }
-//        }
-//        println(Constants.adCounter)
-//    }
-//
-//    private fun createPersonalizedAdd() {
-//        val adRequest = AdRequest.Builder().build()
-//        createInterstitialAdd(adRequest)
-//    }
-//
-//    private fun createInterstitialAdd(adRequest: AdRequest) {
-//        InterstitialAd.load(requireContext(),"ca-app-pub-7588987461083278/8656642342", adRequest, object : InterstitialAdLoadCallback() {
-//            override fun onAdFailedToLoad(adError: LoadAdError) {
-//                mInterstitialAd = null
-//            }
-//
-//            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-//                mInterstitialAd = interstitialAd
-//            }
-//        })
-//    }
+    private fun createInterstitialAd(adRequest: AdRequest) {
+        InterstitialAd.load(requireContext(),"ca-app-pub-7588987461083278/8656642342", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                mInterstitialAd = interstitialAd
+            }
+        })
+    }
 }
