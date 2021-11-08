@@ -26,7 +26,8 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/nestedScrollView3">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -102,9 +103,10 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:fillViewport="true"
             android:background="@color/blue_700"
-            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/inflatedTop">
@@ -117,22 +119,22 @@
                 android:paddingHorizontal="@dimen/_17sdp"
                 android:paddingBottom="@dimen/_12sdp">
 
-                    <View
-                        android:layout_width="@dimen/_2sdp"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="@dimen/_12sdp"
-                        android:layout_marginRight="@dimen/_12sdp"
-                        android:background="@color/blue_700" />
+                <View
+                    android:layout_width="@dimen/_2sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_marginRight="@dimen/_12sdp"
+                    android:background="@color/blue_700" />
 
-                    <TextView
-                        android:id="@+id/inflated_definition"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/oswald_light"
-                        android:textColor="@color/blue_700"
-                        android:textSize="@dimen/_19ssp"
-                        app:dreamDefinition="@{inflatedItemViewModel.dream}"
-                        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+                <TextView
+                    android:id="@+id/inflated_definition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/oswald_light"
+                    android:textColor="@color/blue_700"
+                    android:textSize="@dimen/_19ssp"
+                    app:dreamDefinition="@{inflatedItemViewModel.dream}"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

@@ -239,4 +239,14 @@ class SearchFragment : Fragment() {
         val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return
         clickCounter = sharedPref.getInt("clickCounter", 0)
     }
+
+    override fun onPause() {
+        super.onPause()
+        saveData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
 }
