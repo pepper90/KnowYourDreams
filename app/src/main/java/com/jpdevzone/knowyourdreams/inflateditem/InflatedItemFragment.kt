@@ -70,29 +70,32 @@ class InflatedItemFragment: Fragment() {
                 startActivity(shareIntent)
             }
 
-        inflatedItemViewModel.navigateToSearchFragment.observe(viewLifecycleOwner, {
+        inflatedItemViewModel.navigateToSearchFragment.observe(viewLifecycleOwner) {
             if (it == true) {
                 this.findNavController().navigate(
-                    InflatedItemFragmentDirections.actionInflatedItemFragmentToSearchFragment())
+                    InflatedItemFragmentDirections.actionInflatedItemFragmentToSearchFragment()
+                )
                 inflatedItemViewModel.doneNavigatingToSearchFragment()
             }
-        })
+        }
 
-        inflatedItemViewModel.navigateToFavouritesFragment.observe(viewLifecycleOwner, {
+        inflatedItemViewModel.navigateToFavouritesFragment.observe(viewLifecycleOwner) {
             if (it == true) {
                 this.findNavController().navigate(
-                    InflatedItemFragmentDirections.actionInflatedItemFragmentToFavouritesFragment())
+                    InflatedItemFragmentDirections.actionInflatedItemFragmentToFavouritesFragment()
+                )
                 inflatedItemViewModel.doneNavigatingToFavouritesFragment()
             }
-        })
+        }
 
-        inflatedItemViewModel.navigateToHistoryFragment.observe(viewLifecycleOwner, {
+        inflatedItemViewModel.navigateToHistoryFragment.observe(viewLifecycleOwner) {
             if (it == true) {
                 this.findNavController().navigate(
-                    InflatedItemFragmentDirections.actionInflatedItemFragmentToHistoryFragment())
+                    InflatedItemFragmentDirections.actionInflatedItemFragmentToHistoryFragment()
+                )
                 inflatedItemViewModel.doneNavigatingToHistoryFragment()
             }
-        })
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             inAppReview()

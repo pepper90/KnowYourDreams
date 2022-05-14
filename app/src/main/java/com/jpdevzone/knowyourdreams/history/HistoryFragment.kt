@@ -54,18 +54,20 @@ class HistoryFragment : Fragment() {
         historyRecyclerView.adapter = historyAdapter
         historyRecyclerView.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
 
-        historyViewModel.history.observe(viewLifecycleOwner, {
+        historyViewModel.history.observe(viewLifecycleOwner) {
             historyAdapter.submitList(it)
-        })
+        }
 
-        historyViewModel.navigateToHistoryData.observe(viewLifecycleOwner, {dreamId ->
-            dreamId?.let {  navigate(
-                HistoryFragmentDirections
-                .actionHistoryFragmentToInflatedItemFragment(dreamId))
+        historyViewModel.navigateToHistoryData.observe(viewLifecycleOwner) { dreamId ->
+            dreamId?.let {
+                navigate(
+                    HistoryFragmentDirections
+                        .actionHistoryFragmentToInflatedItemFragment(dreamId)
+                )
                 historyViewModel.onDreamNavigated()
                 historyViewModel.updateTimestampVisited(dreamId)
             }
-        })
+        }
 
         //RANDOM DREAM___________________________________________________________
 
@@ -103,102 +105,4 @@ class HistoryFragment : Fragment() {
         currentDestination?.getAction(destination.actionId)
             ?.let { navigate(destination) }
     }
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        clearData = binding.deleteAllHistory
-//        copy = binding.btnCopy
-//        share = binding.btnShare
-//        addToFavs = binding.btnAddtofavs
-//
-//        historyRecyclerView = binding.historyRecyclerView
-//        historyRecyclerView.setHasFixedSize(true)
-//        historyRecyclerView.addItemDecoration(
-//            DividerItemDecoration(
-//                this.context,
-//                DividerItemDecoration.VERTICAL
-//            )
-//        )
-
-//        mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-//        mAdapter = HistoryAdapter(Constants.history)
-
-//        binding.randomDream.text = random.dreamItem
-//        binding.randomDefinition.text = random.dreamDefinition
-
-//        val dream = StringBuilder()
-//        dream.append(binding.randomDream.text)
-//        dream.append(": ")
-//        dream.append(binding.randomDefinition.text)
-//        dream.append("\n\nКопирано от СъновникБГ - тълкуване на сънища / Google Play: https://play.google.com/store/apps/details?id=com.jpdevzone.knowyourdreams")
-//
-//        copy.setOnClickListener {
-//            val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-//            val clip = ClipData.newPlainText("dream", dream)
-//            clipboard.setPrimaryClip(clip)
-//            Toasty.custom(requireActivity(), R.string.copied, R.drawable.ic_copy, R.color.blue_700, Toast.LENGTH_SHORT, true, true).show()
-//        }
-//
-//        share.setOnClickListener {
-//            val shareIntent = Intent().apply {
-//                this.action = Intent.ACTION_SEND
-//                this.putExtra(Intent.EXTRA_TEXT, "$dream")
-//                this.type = "text/plain"
-//            }
-//            startActivity(shareIntent)
-//        }
-//    }
-
-//    @SuppressLint("NotifyDataSetChanged")
-//    override fun onHiddenChanged(hidden: Boolean) {
-//        super.onHiddenChanged(hidden)
-//        if (!hidden) {
-//            if (Constants.history.isNotEmpty()) {
-//                binding.tvEmptyHistory.visibility = View.GONE
-//                historyRecyclerView.visibility = View.VISIBLE
-//
-//                mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-//                mAdapter = if (Constants.history.size == 1) {
-//                    HistoryAdapter(Constants.history, this)
-//                }else{
-//                    HistoryAdapter(Constants.history.reversed() as ArrayList<Dream>,this)
-//                }
-//
-//                historyRecyclerView.layoutManager = mLayoutManager
-//                historyRecyclerView.adapter = mAdapter
-//            } else {
-//                binding.tvEmptyHistory.visibility = View.VISIBLE
-//                historyRecyclerView.visibility = View.GONE
-//            }
-//
-//            clearData.setOnClickListener {
-//                clearData.animate().rotationBy(360f).duration = 150
-//                Constants.history.clear()
-//                binding.tvEmptyHistory.visibility = View.VISIBLE
-//                historyRecyclerView.visibility = View.GONE
-//            }
-
-//            addToFavs.setOnClickListener {
-//                if (Constants.favourites.contains(random)) {
-//                    Toasty.custom(requireActivity(), R.string.alreadyAdded, R.drawable.ic_attention,R.color.blue_700,Toast.LENGTH_SHORT,true, true).show()
-//                } else {
-//                    Constants.favourites.add(random)
-//                    Toasty.custom(requireActivity(), R.string.addedToFavs, R.drawable.ic_star_full, R.color.blue_700, Toast.LENGTH_SHORT, true, true).show()
-//                }
-//            }
-//        }
-//    }
-
-//    override fun onItemClick(item: String, definition: String) {
-//        val args = Bundle()
-//        args.putString("Item", item)
-//        args.putString("Definition", definition)
-
-//        val inflatedFragment = InflatedItemFragment()
-//        inflatedFragment.arguments = args
-//        val fm = requireActivity().supportFragmentManager
-//
-//        inflatedFragment.show(fm, "inflatedItem")
-//    }
 }

@@ -44,7 +44,5 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }, 3000 )
-
-
     }
 }

@@ -48,7 +48,7 @@ class SearchFragment : Fragment() {
         val viewModelFactory = SearchViewModelFactory(dataSource, application)
         val searchViewModel =
             ViewModelProvider(
-                this, viewModelFactory).get(SearchViewModel::class.java)
+                this, viewModelFactory)[SearchViewModel::class.java]
 
         binding.searchViewModel = searchViewModel
         binding.lifecycleOwner = this
@@ -66,24 +66,28 @@ class SearchFragment : Fragment() {
         searchRecyclerView.adapter = searchAdapter
         searchRecyclerView.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
 
-        searchViewModel.dreams.observe(viewLifecycleOwner, {
+        searchViewModel.dreams.observe(viewLifecycleOwner) {
             searchAdapter.submitList(it)
-        })
+        }
 
-        searchViewModel.navigateToDreamData.observe(viewLifecycleOwner, {dreamId ->
+        searchViewModel.navigateToDreamData.observe(viewLifecycleOwner) { dreamId ->
             dreamId?.let {
                 clickCounter++
                 when (clickCounter % 5 == 0) {
                     true -> {
-                        showAd(SearchFragmentDirections
-                            .actionSearchFragmentToInflatedItemFragment(dreamId))
+                        showAd(
+                            SearchFragmentDirections
+                                .actionSearchFragmentToInflatedItemFragment(dreamId)
+                        )
                         searchViewModel.onDreamNavigated()
                         searchViewModel.addToHistory(dreamId)
                     }
 
                     false -> {
-                        navigate(SearchFragmentDirections
-                            .actionSearchFragmentToInflatedItemFragment(dreamId))
+                        navigate(
+                            SearchFragmentDirections
+                                .actionSearchFragmentToInflatedItemFragment(dreamId)
+                        )
                         searchViewModel.onDreamNavigated()
                         searchViewModel.addToHistory(dreamId)
                         saveData()
@@ -91,7 +95,7 @@ class SearchFragment : Fragment() {
                 }
                 Log.i("INFO", "$clickCounter")
             }
-        })
+        }
 
         //ALPHABET________________________________________________________________
 
@@ -168,7 +172,7 @@ class SearchFragment : Fragment() {
 
     private fun searchDatabase(query: String, viewModel: SearchViewModel, adapter: SearchAdapter) {
         val searchQuery = "%$query%"
-        viewModel.searchDatabase(searchQuery).observe(viewLifecycleOwner, {adapter.submitList(it)})
+        viewModel.searchDatabase(searchQuery).observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 
     private fun searchViewStyling(searchView: SearchView) {
@@ -193,7 +197,7 @@ class SearchFragment : Fragment() {
                     loadAd()
                 }
 
-                override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                     navigate(destination)
                     saveData()
                     mInterstitialAd = null

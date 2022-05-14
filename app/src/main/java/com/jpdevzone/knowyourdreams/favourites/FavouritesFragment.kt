@@ -54,18 +54,20 @@ class FavouritesFragment : Fragment() {
         favouritesRecyclerView.adapter = favouritesAdapter
         favouritesRecyclerView.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
 
-        favouritesViewModel.favourites.observe(viewLifecycleOwner, {
+        favouritesViewModel.favourites.observe(viewLifecycleOwner) {
             favouritesAdapter.submitList(it)
-        })
+        }
 
-        favouritesViewModel.navigateToFavouritesData.observe(viewLifecycleOwner, {dreamId ->
-            dreamId?.let {  navigate(
-                FavouritesFragmentDirections
-                .actionFavouritesFragmentToInflatedItemFragment(dreamId))
+        favouritesViewModel.navigateToFavouritesData.observe(viewLifecycleOwner) { dreamId ->
+            dreamId?.let {
+                navigate(
+                    FavouritesFragmentDirections
+                        .actionFavouritesFragmentToInflatedItemFragment(dreamId)
+                )
                 favouritesViewModel.onDreamNavigated()
                 favouritesViewModel.addToHistory(dreamId)
             }
-        })
+        }
 
         //RANDOM DREAM___________________________________________________________
 
