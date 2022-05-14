@@ -1,7 +1,3 @@
-## Project Status
-- TO DO: _Update Gradle to support latest Android._
-- TO DO: _Polish design with Motion Layout & Material design_
-
 # Know Your Dreams ![](https://img.shields.io/static/v1?style=plastic&label=Language&labelColor=212121&message=Kotlin&color=9719ff) ![](https://img.shields.io/static/v1?style=plastic&label=Technology&labelColor=212121&message=Android&color=#a4c639) ![](https://img.shields.io/static/v1?style=plastic&label=Layout&labelColor=212121&message=XML&color=ff0068)
 
 ![](https://i.ibb.co/D7FfmZJ/1.jpg)
