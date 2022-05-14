@@ -75,7 +75,8 @@ class SearchFragment : Fragment() {
                 clickCounter++
                 when (clickCounter % 5 == 0) {
                     true -> {
-                        showAd(
+                        showAd()
+                        navigate(
                             SearchFragmentDirections
                                 .actionSearchFragmentToInflatedItemFragment(dreamId)
                         )
@@ -187,49 +188,46 @@ class SearchFragment : Fragment() {
         searchView.imeOptions = EditorInfo.IME_ACTION_DONE
     }
 
-    private fun showAd(destination: NavDirections) {
+    private fun loadAd() {
+        val adRequest = AdRequest.Builder().build()
+
+        InterstitialAd.load(requireContext(),"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d("AdMob", adError.message)
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                Log.d("AdMob", "Ad was loaded.")
+                mInterstitialAd = interstitialAd
+            }
+        })
+    }
+
+    private fun showAd() {
         if (mInterstitialAd != null) {
             mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
-                    navigate(destination)
-                    saveData()
+                    Log.d("AdMob", "Ad was dismissed.")
                     mInterstitialAd = null
                     loadAd()
                 }
 
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                    navigate(destination)
-                    saveData()
+                    Log.d("AdMob", "Ad failed to show.")
                     mInterstitialAd = null
                 }
 
                 override fun onAdShowedFullScreenContent() {
-                    navigate(destination)
-                    saveData()
+                    Log.d("AdMob", "Ad showed fullscreen content.")
+                    mInterstitialAd = null
                 }
             }
             mInterstitialAd?.show(requireContext() as Activity)
         } else {
-            navigate(destination)
-            saveData()
+            Toasty.custom(requireContext(), R.string.noAdLoaded,R.drawable.ic_no_ads,R.color.black,
+                Toast.LENGTH_LONG,true, true).show()
         }
-    }
-
-    private fun loadAd() {
-        val adRequest = AdRequest.Builder().build()
-        createInterstitialAd(adRequest)
-    }
-
-    private fun createInterstitialAd(adRequest: AdRequest) {
-        InterstitialAd.load(requireContext(),"ca-app-pub-7588987461083278/8656642342", adRequest, object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                mInterstitialAd = null
-            }
-
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                mInterstitialAd = interstitialAd
-            }
-        })
     }
 
     private fun saveData() {

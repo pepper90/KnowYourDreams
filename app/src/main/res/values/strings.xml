@@ -16,4 +16,5 @@
     <string name="alreadyAdded">Сънят вече е добавен в Любими.</string>
     <string name="copied">Копирано!</string>
     <string name="reviewFail">Ревюто не беше публикувано!</string>
+    <string name="noAdLoaded">Неуспешна реклама!</string>
 </resources>
