@@ -1,5 +1,6 @@
 package com.jpdevzone.knowyourdreams.search
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
@@ -11,7 +12,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -23,6 +23,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.play.core.tasks.Task
 import com.jpdevzone.knowyourdreams.R
 import com.jpdevzone.knowyourdreams.database.DreamDatabase
 import com.jpdevzone.knowyourdreams.databinding.FragmentSearchBinding
@@ -127,41 +131,9 @@ class SearchFragment : Fragment() {
             }
         })
 
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    when (searchView.isIconified) {
-                        false -> {
-                            searchView.isIconified = true
-                            searchView.isIconified = true
-                            searchView.clearFocus()
-                        }
-                        else -> {
-                            if (isEnabled) {
-                                Toasty.custom(
-                                    context!!,
-                                    R.string.toast,
-                                    R.drawable.ic_exit,
-                                    R.color.blue_700,
-                                    Toast.LENGTH_SHORT,
-                                    true,
-                                    true
-                                ).show()
-                                isEnabled = false
-                            } else {
-                                saveData()
-                                requireActivity().onBackPressed()
-                            }
-                        }
-                    }
-                }
-            }
-            )
-
         MobileAds.initialize(requireContext()) {}
         loadAd()
-
+        rateApp(requireActivity())
         return binding.root
     }
 
@@ -176,6 +148,7 @@ class SearchFragment : Fragment() {
         viewModel.searchDatabase(searchQuery).observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 
+    @SuppressLint("DiscouragedApi")
     private fun searchViewStyling(searchView: SearchView) {
         val input = searchView.context.resources.getIdentifier("android:id/search_src_text", null, null)
         val searchText = searchView.findViewById<View>(input) as TextView
@@ -191,7 +164,7 @@ class SearchFragment : Fragment() {
     private fun loadAd() {
         val adRequest = AdRequest.Builder().build()
 
-        InterstitialAd.load(requireContext(),"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(requireContext(),"ca-app-pub-7588987461083278/7970508644", adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d("AdMob", adError.message)
                 mInterstitialAd = null
@@ -240,6 +213,20 @@ class SearchFragment : Fragment() {
     private fun loadData() {
         val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return
         clickCounter = sharedPref.getInt("clickCounter", 0)
+    }
+
+    fun rateApp(activity: Activity){
+        val manager: ReviewManager = ReviewManagerFactory.create(activity.applicationContext)
+        val request: Task<ReviewInfo> = manager.requestReviewFlow()
+        request.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // We can get the ReviewInfo object
+                val reviewInfo: ReviewInfo = task.result
+                val flow: Task<Void> =
+                    manager.launchReviewFlow(activity, reviewInfo)
+                flow.addOnCompleteListener { }
+            }
+        }
     }
 
     override fun onPause() {

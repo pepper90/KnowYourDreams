@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_inflatedItemFragment"
-            app:destination="@id/inflatedItemFragment"/>
+            app:destination="@id/inflatedItemFragment"
+            app:popUpTo="@id/searchFragment" />
     </fragment>
 
     <fragment
@@ -22,7 +23,8 @@
         tools:layout="@layout/fragment_history" >
         <action
             android:id="@+id/action_historyFragment_to_inflatedItemFragment"
-            app:destination="@id/inflatedItemFragment" />
+            app:destination="@id/inflatedItemFragment"
+            app:popUpTo="@id/historyFragment" />
     </fragment>
 
     <fragment
@@ -32,7 +34,8 @@
         tools:layout="@layout/fragment_favourites" >
         <action
             android:id="@+id/action_favouritesFragment_to_inflatedItemFragment"
-            app:destination="@id/inflatedItemFragment" />
+            app:destination="@id/inflatedItemFragment"
+            app:popUpTo="@id/favouritesFragment" />
     </fragment>
 
     <fragment
@@ -40,18 +43,9 @@
         android:name="com.jpdevzone.knowyourdreams.inflateditem.InflatedItemFragment"
         android:label="InflatedItemFragment"
         tools:layout="@layout/fragment_inflated_item">
-        <action
-            android:id="@+id/action_inflatedItemFragment_to_searchFragment"
-            app:destination="@id/searchFragment"/>
-        <action
-            android:id="@+id/action_inflatedItemFragment_to_favouritesFragment"
-            app:destination="@id/favouritesFragment" />
         <argument
             android:name="dreamId"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_inflatedItemFragment_to_historyFragment"
-            app:destination="@id/historyFragment" />
     </fragment>
 
 </navigation>

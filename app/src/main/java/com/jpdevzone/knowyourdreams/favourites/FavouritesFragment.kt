@@ -36,7 +36,7 @@ class FavouritesFragment : Fragment() {
         val viewModelFactory = FavouritesViewModelFactory(dataSource, application)
         val favouritesViewModel =
             ViewModelProvider(
-                this, viewModelFactory).get(FavouritesViewModel::class.java)
+                this, viewModelFactory)[FavouritesViewModel::class.java]
 
         binding.favouritesViewModel = favouritesViewModel
         binding.lifecycleOwner = this

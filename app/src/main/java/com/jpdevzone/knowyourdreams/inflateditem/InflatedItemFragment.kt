@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,75 +43,53 @@ class InflatedItemFragment: Fragment() {
         binding.lifecycleOwner = this
 
         binding.btnCopy.setOnClickListener {
-                val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("dream",
+            val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("dream",
+                stringBuilder(
+                    binding.inflatedDream.text.toString(),
+                    binding.inflatedDefinition.text.toString()
+                )
+            )
+            clipboard.setPrimaryClip(clip)
+            Toasty.custom(requireContext(), R.string.copied, R.drawable.ic_copy, R.color.blue_700, Toast.LENGTH_SHORT, true, true).show()
+        }
+
+        binding.btnShare.setOnClickListener {
+            val shareIntent = Intent().apply {
+                this.action = Intent.ACTION_SEND
+                this.putExtra(
+                    Intent.EXTRA_TEXT,
                     stringBuilder(
                         binding.inflatedDream.text.toString(),
                         binding.inflatedDefinition.text.toString()
                     )
                 )
-                clipboard.setPrimaryClip(clip)
-                Toasty.custom(requireContext(), R.string.copied, R.drawable.ic_copy, R.color.blue_700, Toast.LENGTH_SHORT, true, true).show()
+                this.type = "text/plain"
             }
-
-        binding.btnShare.setOnClickListener {
-                val shareIntent = Intent().apply {
-                    this.action = Intent.ACTION_SEND
-                    this.putExtra(
-                        Intent.EXTRA_TEXT,
-                        stringBuilder(
-                            binding.inflatedDream.text.toString(),
-                            binding.inflatedDefinition.text.toString()
-                        )
-                    )
-                    this.type = "text/plain"
-                }
-                startActivity(shareIntent)
-            }
+            startActivity(shareIntent)
+        }
 
         inflatedItemViewModel.navigateToSearchFragment.observe(viewLifecycleOwner) {
             if (it == true) {
-                this.findNavController().navigate(
-                    InflatedItemFragmentDirections.actionInflatedItemFragmentToSearchFragment()
-                )
+                this.findNavController().navigateUp()
                 inflatedItemViewModel.doneNavigatingToSearchFragment()
             }
         }
 
         inflatedItemViewModel.navigateToFavouritesFragment.observe(viewLifecycleOwner) {
             if (it == true) {
-                this.findNavController().navigate(
-                    InflatedItemFragmentDirections.actionInflatedItemFragmentToFavouritesFragment()
-                )
+                this.findNavController().navigateUp()
                 inflatedItemViewModel.doneNavigatingToFavouritesFragment()
             }
         }
 
         inflatedItemViewModel.navigateToHistoryFragment.observe(viewLifecycleOwner) {
             if (it == true) {
-                this.findNavController().navigate(
-                    InflatedItemFragmentDirections.actionInflatedItemFragmentToHistoryFragment()
-                )
+                this.findNavController().navigateUp()
                 inflatedItemViewModel.doneNavigatingToHistoryFragment()
             }
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            inAppReview()
-        }
-
         return binding.root
-    }
-
-    private fun inAppReview() {
-        val reviewManager = ReviewManagerFactory.create(requireContext())
-        val requestReviewFlow = reviewManager.requestReviewFlow()
-        requestReviewFlow.addOnCompleteListener { request ->
-            if (request.isSuccessful) {
-                val reviewInfo = request.result
-                val flow = reviewManager.launchReviewFlow(requireActivity(), reviewInfo)
-                flow.addOnCompleteListener {}
-            }
-        }
     }
 }
